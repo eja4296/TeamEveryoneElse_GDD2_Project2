@@ -30,4 +30,6 @@ abstract public class Character : MonoBehaviour {
 	// Rotate function
 	// Must be overridden
 	abstract public void Rotate (Vector3 rotation);
+
+	abstract public void Shoot ();
 }

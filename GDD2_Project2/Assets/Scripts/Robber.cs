@@ -8,7 +8,10 @@ public class Robber : Character {
 	// Attributes
 	public Camera camera;
 	public float height;
-	public bool moving;
+
+	public List<GameObject> bullets;
+	public bool shooting;
+	public GameObject bulletPrefab;
 
 	// Use this for initialization
 	override public void Start () {
@@ -16,13 +19,24 @@ public class Robber : Character {
 		rotationSpeed = 3f;
 		direction = new Vector3 (0, 0, 1);
 		height = 0.5f;
-		moving = false;
+		bullets = new List<GameObject> ();
+		shooting = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		GetInput ();
 
+		// Update bullets
+		if (shooting && bullets.Count > 0) {
+			for (int i = 0; i < bullets.Count; i++) {
+				if (bullets [i] == null) {
+					bullets.RemoveAt (i);
+				}
+			}
+		} else {
+			shooting = false;
+		}
 	}
 
 	// Get User Input
@@ -40,37 +54,33 @@ public class Robber : Character {
 			if (newDirection.magnitude > 2) {
 				targetDirection.y = height;
 				Rotate (targetDirection);
-
-
-
 			}
 		}
 
-
+		if (Input.GetMouseButtonDown (0)) {
+			Shoot ();
+		}
+			
 		// Handle Movement
 		// Forward (W)
 		if(Input.GetKey(KeyCode.W)){
 			Vector3 moveVec = new Vector3(0f, 0f, 1f) * movementSpeed;
 			Move (moveVec);
-			moving = true;
 		}
 		// Backward (S)
 		if(Input.GetKey(KeyCode.S)){
 			Vector3 moveVec = new Vector3(0f, 0f, 1f) * -movementSpeed;
 			Move (moveVec);
-			moving = true;
 		}
 		// Left (A)
 		if(Input.GetKey(KeyCode.A)){
 			Vector3 moveVec = new Vector3(1f, 0f, 0f) * -movementSpeed;
 			Move (moveVec);
-			moving = true;
 		}
 		// Right (D)
 		if(Input.GetKey(KeyCode.D)){
 			Vector3 moveVec = new Vector3(1f, 0f, 0f) * movementSpeed;
 			Move (moveVec);
-			moving = true;
 		}
 
 	}
@@ -79,4 +89,15 @@ public class Robber : Character {
 	override public void Rotate(Vector3 rotation){
 		this.transform.LookAt(rotation);	
 	}
+
+	// Shoot bullets
+	override public void Shoot(){
+		GameObject newBullet = GameObject.Instantiate(bulletPrefab, this.transform.position, Quaternion.identity);
+		newBullet.AddComponent<Bullet> ();
+		newBullet.GetComponent<Bullet> ().direction = this.transform.forward;
+		bullets.Add (newBullet);
+		shooting = true;
+	}
+		
+
 }
