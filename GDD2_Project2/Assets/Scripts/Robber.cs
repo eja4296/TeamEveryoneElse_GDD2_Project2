@@ -13,14 +13,17 @@ public class Robber : Character {
 	public bool shooting;
 	public GameObject bulletPrefab;
 
+	private CharacterController charController;
+
 	// Use this for initialization
 	override public void Start () {
-		movementSpeed = 0.35f;
+		movementSpeed = 500f;
 		rotationSpeed = 3f;
 		direction = new Vector3 (0, 0, 1);
 		height = 0.5f;
 		bullets = new List<GameObject> ();
 		shooting = false;
+		charController = this.GetComponent<CharacterController> ();
 	}
 	
 	// Update is called once per frame
@@ -85,6 +88,10 @@ public class Robber : Character {
 
 	}
 
+	override public void Move(Vector3 movement){
+		charController.SimpleMove (movement * Time.deltaTime);
+	}
+
 	// Rotate the robber based on mouse
 	override public void Rotate(Vector3 rotation){
 		this.transform.LookAt(rotation);	
@@ -92,9 +99,11 @@ public class Robber : Character {
 
 	// Shoot bullets
 	override public void Shoot(){
-		GameObject newBullet = GameObject.Instantiate(bulletPrefab, this.transform.position, Quaternion.identity);
+		Vector3 bulletPosition = new Vector3 (this.transform.position.x, 0.5f, this.transform.position.z);
+		GameObject newBullet = GameObject.Instantiate(bulletPrefab, bulletPosition, Quaternion.identity);
+		newBullet.transform.position += (this.transform.forward * 1.25f);
 		newBullet.AddComponent<Bullet> ();
-		newBullet.GetComponent<Bullet> ().direction = this.transform.forward;
+		newBullet.GetComponent<Bullet> ().direction = new Vector3(this.transform.forward.x, 0f, this.transform.forward.z);
 		bullets.Add (newBullet);
 		shooting = true;
 	}

@@ -10,12 +10,15 @@ public class Bullet : MonoBehaviour {
 	public float bulletSpeed;
 	public int bulletRange;
 
+	private CharacterController charController;
+
 	// Use this for initialization
 	void Start () {
 		//bulletModel = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 		velocity = this.transform.forward;
 		bulletRange = 60;
 		bulletSpeed = 50f;
+		charController = this.GetComponent<CharacterController> ();
 	}
 	
 	// Update is called once per frame
@@ -26,11 +29,22 @@ public class Bullet : MonoBehaviour {
 		if (bulletRange <= 0) {
 			Destroy (this.gameObject);
 		}
+
 	}
 
 	// Update bullet's position, increment range counter
 	public void Move(){
-		this.transform.position += direction * Time.deltaTime * bulletSpeed;
+		
+		charController.Move (direction * Time.deltaTime * bulletSpeed);
+		//this.transform.position += direction * Time.deltaTime * bulletSpeed;
 		bulletRange--;
+	}
+
+	public void OnControllerColliderHit(ControllerColliderHit hit){
+		
+		if (hit.gameObject.name != "Robber" && hit.gameObject.name != "Cube" && hit.gameObject.name != "Bullet") {
+			Destroy (this.gameObject);
+			Debug.Log (hit.gameObject.name);
+		}
 	}
 }

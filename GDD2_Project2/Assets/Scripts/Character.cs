@@ -23,9 +23,7 @@ abstract public class Character : MonoBehaviour {
 	}
 
 	// Move function
-	protected void Move(Vector3 movement){
-		this.transform.position += movement;
-	}
+	abstract public void Move (Vector3 movement);
 
 	// Rotate function
 	// Must be overridden
