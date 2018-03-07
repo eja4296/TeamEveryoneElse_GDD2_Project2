@@ -20,7 +20,7 @@ public class Robber : Character {
 		movementSpeed = 500f;
 		rotationSpeed = 3f;
 		direction = new Vector3 (0, 0, 1);
-		height = 0.5f;
+		height = 1.25f;
 		bullets = new List<GameObject> ();
 		shooting = false;
 		charController = this.GetComponent<CharacterController> ();
@@ -55,7 +55,7 @@ public class Robber : Character {
 
 			// Don't move or rotate the robber if it is already at the mouse's position (or close to it)
 			if (newDirection.magnitude > 2) {
-				targetDirection.y = height;
+				targetDirection.y = 0f;
 				Rotate (targetDirection);
 			}
 		}
@@ -90,6 +90,7 @@ public class Robber : Character {
 
 	override public void Move(Vector3 movement){
 		charController.SimpleMove (movement * Time.deltaTime);
+
 	}
 
 	// Rotate the robber based on mouse
@@ -99,9 +100,9 @@ public class Robber : Character {
 
 	// Shoot bullets
 	override public void Shoot(){
-		Vector3 bulletPosition = new Vector3 (this.transform.position.x, 0.5f, this.transform.position.z);
+		Vector3 bulletPosition = new Vector3 (this.transform.position.x, height, this.transform.position.z);
 		GameObject newBullet = GameObject.Instantiate(bulletPrefab, bulletPosition, Quaternion.identity);
-		newBullet.transform.position += (this.transform.forward * 1.25f);
+		newBullet.transform.position += (this.transform.forward);
 		newBullet.AddComponent<Bullet> ();
 		newBullet.GetComponent<Bullet> ().direction = new Vector3(this.transform.forward.x, 0f, this.transform.forward.z);
 		bullets.Add (newBullet);
