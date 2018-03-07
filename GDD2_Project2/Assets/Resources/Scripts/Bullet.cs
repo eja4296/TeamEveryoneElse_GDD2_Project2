@@ -5,7 +5,6 @@ using UnityEngine;
 // Bullet class
 public class Bullet : MonoBehaviour {
 	// Attributes
-	Vector3 velocity;
 	public Vector3 direction;
 	public float bulletSpeed;
 	public int bulletRange;
@@ -15,7 +14,6 @@ public class Bullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//bulletModel = GameObject.CreatePrimitive (PrimitiveType.Sphere);
-		velocity = this.transform.forward;
 		bulletRange = 60;
 		bulletSpeed = 50f;
 		charController = this.GetComponent<CharacterController> ();
@@ -47,4 +45,13 @@ public class Bullet : MonoBehaviour {
 			Debug.Log (hit.gameObject.name);
 		}
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "enemy")
+        {
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
+        }
+    }
 }

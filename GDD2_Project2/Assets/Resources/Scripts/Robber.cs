@@ -108,6 +108,4 @@ public class Robber : Character {
 		bullets.Add (newBullet);
 		shooting = true;
 	}
-		
-
 }
