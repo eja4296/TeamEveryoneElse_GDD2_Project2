@@ -45,7 +45,7 @@ public class Robber : Character {
 	// Get User Input
 	void GetInput(){
 		// Get the mouse position and find where it hits in the game
-		Vector3 mousePos = Input.mousePosition;
+		/*Vector3 mousePos = Input.mousePosition;
 		Ray mouseRay = camera.ScreenPointToRay (mousePos);
 		RaycastHit hit;
 
@@ -59,7 +59,7 @@ public class Robber : Character {
 				Rotate (targetDirection);
 			}
 		}
-
+        */
 		if (Input.GetMouseButtonDown (0)) {
 			Shoot ();
 		}
@@ -67,22 +67,22 @@ public class Robber : Character {
 		// Handle Movement
 		// Forward (W)
 		if(Input.GetKey(KeyCode.W)){
-			Vector3 moveVec = new Vector3(0f, 0f, 1f) * movementSpeed;
+			Vector3 moveVec = transform.forward * movementSpeed;
 			Move (moveVec);
 		}
 		// Backward (S)
 		if(Input.GetKey(KeyCode.S)){
-			Vector3 moveVec = new Vector3(0f, 0f, 1f) * -movementSpeed;
+			Vector3 moveVec = transform.forward  * -movementSpeed;
 			Move (moveVec);
 		}
 		// Left (A)
 		if(Input.GetKey(KeyCode.A)){
-			Vector3 moveVec = new Vector3(1f, 0f, 0f) * -movementSpeed;
+			Vector3 moveVec = transform.right * -movementSpeed;
 			Move (moveVec);
 		}
 		// Right (D)
 		if(Input.GetKey(KeyCode.D)){
-			Vector3 moveVec = new Vector3(1f, 0f, 0f) * movementSpeed;
+			Vector3 moveVec = transform.right * movementSpeed;
 			Move (moveVec);
 		}
 

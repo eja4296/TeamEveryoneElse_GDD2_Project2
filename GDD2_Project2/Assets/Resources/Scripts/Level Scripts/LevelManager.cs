@@ -51,7 +51,7 @@ public class LevelManager : MonoBehaviour {
         //update chunk location
         playerX = (int)((player.transform.position.x + ((renderDist + .5f) * blockSize.x)) / blockSize.x);
         playerY = (int)((player.transform.position.z + ((renderDist + .5f) * blockSize.y)) / blockSize.y);
-        Debug.Log("X:" + playerX + ", Y:" + playerY);
+        //Debug.Log("X:" + playerX + ", Y:" + playerY);
         
         //compare old variables to new ones to see if character has jumped chunks
         if(playerX > oldX)

@@ -9,51 +9,32 @@ public class CameraMovement : MonoBehaviour {
 	public GameObject robber;
 	public float cameraHeight;
 	public float cameraOffset;
+    public GameObject target;
 
+    public float rotateSpeed = 5;
+    //Vector3 offset;
 
-	// Use this for initialization
-	void Start () {
-		    
-		this.transform.position = new Vector3 (0f, cameraHeight, cameraOffset);
+    // Use this for initialization
+    void Start () {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+        //offset = target.transform.position - transform.position;
+        this.transform.position = new Vector3 (0f, cameraHeight, cameraOffset);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        this.transform.position = robber.transform.position + new Vector3(0f, cameraHeight, cameraOffset);
-        /*Vector3 currentTarget = robber.transform.position;
+    //look camera code from code.tutsplus.com 
+    void Update()
+    {
+        float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
 
-		Vector3 distance = currentTarget - this.transform.position;
+        float vertical = Input.GetAxis("Mouse Y") * rotateSpeed;
 
-		distance.y = 0f;
-		distance.z += cameraOffset;
+        target.transform.Rotate(0, horizontal, 0);
 
-		if (distance.magnitude > 2) {
-			
+        float desiredAngle = target.transform.eulerAngles.y;
+        Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
+        transform.position = target.transform.position - (rotation* new Vector3(0f, -cameraHeight, cameraOffset));
 
-			distance.Normalize ();
-
-			distance *= Time.deltaTime;
-
-			this.transform.position += distance * 20f;
-		}
-        */
-
-        /*
-		if (distance.magnitude > 5) {
-			distance.Normalize ();
-			this.transform.position += distance * Time.deltaTime * 5f;
-
-
-			float robberX = robber.transform.position.x;
-			float robberZ = robber.transform.position.z;
-			float newCameraZ = robberZ + cameraOffset;
-			Vector3 targetVec = new Vector3 (robberX, cameraHeight, newCameraZ);
-			//Vector3 velocity = Vector3.zero;
-			//this.transform.position = Vector3.SmoothDamp (this.transform.position, targetVec, ref velocity, 10f);
-			this.transform.position = targetVec * Time.deltaTime;
-
-		}
-		*/
-
+        transform.LookAt(target.transform);
     }
+
 }
