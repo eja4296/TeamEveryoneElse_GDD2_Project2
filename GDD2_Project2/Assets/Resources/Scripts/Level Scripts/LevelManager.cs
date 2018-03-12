@@ -8,135 +8,140 @@ public class LevelManager : MonoBehaviour {
     //stores level transform to parent new level elements
     public Transform level;
 
+    List<List<GameObject>> levelMap;
+
     public GameObject block;
-    public GameObject street;
-    //horizontally oriented street on the short sides of blocks
-    public GameObject horizStreet;
-    public GameObject intersection;
 
     //Y axis in vector2 is measurement of Z in game
     public Vector2 blockSize;
-    public Vector2 streetSize;
-    public Vector2 intersectionSize;
-    public Vector2 horizStreetSize;
-
-    Vector2 blockHalfSize;
-    Vector2 streetHalfSize;
-    Vector2 intersectionHalfSize;
-    Vector2 horizStreetHalfSize;
 
     //the number of chunks the level should be generated to in the X and the Y
     public int renderDist;
-
-
+    int oldX, oldY;
+    public int playerX, playerY;
     // Use this for initialization
     void Start () {
         //calculate half sizes
-        blockHalfSize = blockSize / 2f;
-        streetHalfSize = streetSize / 2f;
-        intersectionHalfSize = intersectionSize / 2f;
-        horizStreetHalfSize = horizStreetSize / 2f;
-
-        block = Resources.Load<GameObject>("Prefabs/Level Prefabs/Block1");//using block1 is temp
-        street = Resources.Load<GameObject>("Prefabs/Level Prefabs/Street");
-        intersection = Resources.Load<GameObject>("Prefabs/Level Prefabs/Intersection");
-        horizStreet = Resources.Load<GameObject>("Prefabs/Level Prefabs/Horizontal Street");
-
-        Vector2 spawnPos = -intersectionSize/2f;
-        //for creating block pattern
-        int xIndex = 0;
-        int yIndex = 0;
-        //loop the rows of patterns
-        for (int z = 0; z < renderDist/4; z++) {
-            //Create rows of patterned chunks
-            for (int x = 0; x < renderDist; x++) {
-                //align the spawn point to the half widths to get aligned spawning
-                if (xIndex == 0) {
-                    spawnPos.x += streetHalfSize.x;
-                } else if (xIndex == 1) {
-                    spawnPos.x += blockHalfSize.x;
-                }
-
-                float oldSpawnY = spawnPos.y;
-                //create columns of patterned chunks
-
-                for (int y = 0; y < renderDist; y++) {
-                    //for the first type of column pattern (streets)
-                    if (xIndex == 0) {
-                        switch (yIndex) {
-                            case 0:
-                                spawnPos.y += intersectionHalfSize.y;
-                                GameObject newIntersection = Instantiate(intersection, level);
-                                newIntersection.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.y);
-                                spawnPos.y += intersectionHalfSize.y;
-                                break;
-                            case 1:
-                                spawnPos.y += streetHalfSize.y;
-                                GameObject newStreet = Instantiate(street, level);
-                                newStreet.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.y);
-                                spawnPos.y += streetHalfSize.y;
-                                break;
-                            case 2:
-                                spawnPos.y += streetHalfSize.y;
-                                newStreet = Instantiate(street, level);
-                                newStreet.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.y);
-                                spawnPos.y += streetHalfSize.y;
-                                break;
-                        }
-                    } 
-                    //for the second type of column pattern (blocks)
-                    else if (xIndex == 1) {
-
-                        switch (yIndex) {
-                            case 0:
-                                spawnPos.y += horizStreetHalfSize.y;
-                                GameObject newHorizStreet = Instantiate(horizStreet, level);
-                                newHorizStreet.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.y);
-                                spawnPos.y += horizStreetHalfSize.y;
-                                break;
-                            case 1:
-                                spawnPos.y += blockHalfSize.y;
-                                GameObject newBlock = Instantiate(block, level);
-                                newBlock.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.y);
-                                spawnPos.y += blockHalfSize.y;
-                                break;
-                            case 2:
-                                spawnPos.y += blockHalfSize.y;
-                                newBlock = Instantiate(block, level);
-                                newBlock.transform.position = new Vector3(spawnPos.x, 0f, spawnPos.y);
-                                spawnPos.y += blockHalfSize.y;
-                                break;
-                        }
-                    }
-                    //increment y
-                    yIndex++;
-                }
-                //reset the Y for the next column
-                spawnPos.y = oldSpawnY;
-                //add second half size
-                if (xIndex == 0) {
-                    spawnPos.x += streetHalfSize.x;
-                } else if (xIndex == 1) {
-                    spawnPos.x += blockHalfSize.x;
-                }
-                //increment x
-                xIndex++;
-                //reset if over pattern limit
-                if (xIndex > 1) xIndex = 0;
-                if (yIndex > 2) yIndex = 0;
-            }
-            //reset positions for next row
-            spawnPos.y += streetSize.y * 2f + intersectionSize.y;
-            spawnPos.x = -intersectionSize.x / 2f;
-            //reset indices to start on the same section of the pattern
-            xIndex = 0;
-            yIndex = 0;
+        block = Resources.Load<GameObject>("Prefabs/Level Prefabs/block");
+        levelMap = new List<List<GameObject>>();
+        while (levelMap.Count < renderDist * 2)
+        {
+            levelMap.Add(new List<GameObject>());
         }
+        for (int x = 0; x < levelMap.Count; x++)
+        {
+            for (int y = 0; y < renderDist * 2; y++)
+            {
+                GameObject newChunk = Instantiate<GameObject>(block, level);
+                levelMap[x].Add(newChunk);
+                //position it around player
+                newChunk.transform.position = new Vector3((renderDist * blockSize.x *  -1) + (x * blockSize.x), 0f, (renderDist * blockSize.y * -1) + (y * blockSize.y));
+            }
+        }
+        playerX = (int)((player.transform.position.x + ((renderDist + .5f) * blockSize.x)) / blockSize.x);
+        playerY = (int)((player.transform.position.z + ((renderDist + .5f) * blockSize.y)) / blockSize.y);
+        oldX = playerX;
+        oldY = playerY;
+   
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
+        //update chunk location
+        playerX = (int)((player.transform.position.x + ((renderDist + .5f) * blockSize.x)) / blockSize.x);
+        playerY = (int)((player.transform.position.z + ((renderDist + .5f) * blockSize.y)) / blockSize.y);
+        Debug.Log("X:" + playerX + ", Y:" + playerY);
         
-	}
+        //compare old variables to new ones to see if character has jumped chunks
+        if(playerX > oldX)
+        {
+            List<GameObject> oldObjs = levelMap[0];
+            levelMap.RemoveAt(0);
+            foreach(GameObject e in oldObjs)
+            {
+                Destroy(e);
+            }
+            levelMap.Add(new List<GameObject>());
+            for (int y = 0; y < renderDist * 2; y++)
+            {
+                GameObject newChunk = Instantiate<GameObject>(block, level);
+                levelMap[levelMap.Count - 1].Add(newChunk);
+                //position it around player
+                newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX + renderDist - 1) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
+            }
+        }
+        else if(playerX < oldX)
+        {
+            List<GameObject> oldObjs = levelMap[levelMap.Count - 1];
+            levelMap.RemoveAt(levelMap.Count-1);
+            foreach (GameObject e in oldObjs)
+            {
+                Destroy(e);
+            }
+            levelMap.Insert(0,new List<GameObject>());
+            for (int y = 0; y < renderDist * 2; y++)
+            {
+                GameObject newChunk = Instantiate<GameObject>(block, level);
+                levelMap[0].Add(newChunk);
+                //position it around player
+                newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
+            }
+        }
+
+        if(playerY > oldY)
+        {
+            List<GameObject> oldObjs = new List<GameObject>();
+
+            //add the entire row to list
+            for (int i = 0; i < levelMap.Count; i++)
+            {
+                oldObjs.Add(levelMap[i][0]);
+                levelMap[i].RemoveAt(0);
+            }
+            foreach (GameObject e in oldObjs)
+            {
+                Destroy(e);
+            }
+
+            for (int y = 0; y < renderDist * 2; y++)
+            {
+                GameObject newChunk = Instantiate<GameObject>(block, level);
+                levelMap[y].Insert(levelMap.Count - 1, newChunk);
+                //levelMap[0].Add(newChunk);
+                //position it around player
+                newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist + y) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY + renderDist - 1) * blockSize.y));
+            }
+        }
+        else if(playerY < oldY)
+        {
+            List<GameObject> oldObjs = new List<GameObject>();
+            
+            //add the entire row to list
+            for (int i = 0; i < levelMap.Count; i++)
+            {
+                oldObjs.Add(levelMap[i][levelMap.Count - 1]);
+                levelMap[i].Remove(oldObjs[oldObjs.Count-1]);
+            }
+            foreach (GameObject e in oldObjs)
+            {
+                Destroy(e);
+            }
+            
+            for (int y = 0; y < renderDist * 2; y++)
+            {
+                GameObject newChunk = Instantiate<GameObject>(block, level);
+                levelMap[y].Insert(0, newChunk);
+                //levelMap[0].Add(newChunk);
+                //position it around player
+                newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist + y) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist) * blockSize.y));
+            }
+        }
+
+        //update old variables
+        oldX = playerX;
+        oldY = playerY;
+
+    }
     
 }

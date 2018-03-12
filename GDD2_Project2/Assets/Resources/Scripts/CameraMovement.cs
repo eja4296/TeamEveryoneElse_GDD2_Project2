@@ -13,8 +13,7 @@ public class CameraMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		cameraHeight = 20f;
-		cameraOffset = -20f;
+		    
 		this.transform.position = new Vector3 (0f, cameraHeight, cameraOffset);
 	}
 	
