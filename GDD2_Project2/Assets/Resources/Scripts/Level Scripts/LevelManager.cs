@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
+    //list of all building objects
+    public List<GameObject> buildings;
     //stores player location
     public Transform player;
     //stores level transform to parent new level elements
     public Transform level;
 
+    //2d list of levelmap
     List<List<GameObject>> levelMap;
 
     public GameObject block;
@@ -19,8 +22,13 @@ public class LevelManager : MonoBehaviour {
     public int renderDist;
     int oldX, oldY;
     public int playerX, playerY;
+
+    public Vector2 PlotSize;
+
     // Use this for initialization
     void Start () {
+        //initalize all buildings
+        buildings = new List<GameObject>(Resources.LoadAll<GameObject>("Prefabs/Level Prefabs/Buildings"));
         //calculate half sizes
         block = Resources.Load<GameObject>("Prefabs/Level Prefabs/block");
         levelMap = new List<List<GameObject>>();
@@ -36,6 +44,7 @@ public class LevelManager : MonoBehaviour {
                 levelMap[x].Add(newChunk);
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x *  -1) + (x * blockSize.x), 0f, (renderDist * blockSize.y * -1) + (y * blockSize.y));
+                FillPlots(newChunk);
             }
         }
         playerX = (int)((player.transform.position.x + ((renderDist + .5f) * blockSize.x)) / blockSize.x);
@@ -44,7 +53,26 @@ public class LevelManager : MonoBehaviour {
         oldY = playerY;
    
     }
-
+    public void FillPlots(GameObject newChunk)
+    {
+        List<GameObject> plots = new List<GameObject>();
+        for (int i = 1; i <= 8; i++)
+        {
+            plots.Add(newChunk.transform.Find("Plots").transform.Find("Plot" + i).gameObject);
+        }
+        foreach (GameObject o in plots)
+        {
+            GameObject newBuilding = Instantiate(buildings[Random.Range(0, buildings.Count)]);
+            newBuilding.transform.parent = o.transform;
+            float movableX = PlotSize.x - newBuilding.GetComponent<Building>().size.x;
+            float movableY = PlotSize.y - newBuilding.GetComponent<Building>().size.z;
+            Vector3 move = new Vector3(Random.Range(-movableX / 2f, movableX/2f) , 0f, Random.Range(-movableY / 2f, movableY) );
+            Debug.Log("MovableX: " + movableX + ", MovableY:" + movableY);
+            Debug.Log(move);
+            newBuilding.transform.position = o.transform.position + move;
+        }
+        //levelMap[levelMap.Count - 1].Add(newChunk);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -66,9 +94,11 @@ public class LevelManager : MonoBehaviour {
             for (int y = 0; y < renderDist * 2; y++)
             {
                 GameObject newChunk = Instantiate<GameObject>(block, level);
+                
                 levelMap[levelMap.Count - 1].Add(newChunk);
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX + renderDist - 1) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
+                FillPlots(newChunk);
             }
         }
         else if(playerX < oldX)
@@ -83,9 +113,11 @@ public class LevelManager : MonoBehaviour {
             for (int y = 0; y < renderDist * 2; y++)
             {
                 GameObject newChunk = Instantiate<GameObject>(block, level);
+                
                 levelMap[0].Add(newChunk);
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
+                FillPlots(newChunk);
             }
         }
 
@@ -107,10 +139,12 @@ public class LevelManager : MonoBehaviour {
             for (int y = 0; y < renderDist * 2; y++)
             {
                 GameObject newChunk = Instantiate<GameObject>(block, level);
+                
                 levelMap[y].Insert(levelMap.Count - 1, newChunk);
                 //levelMap[0].Add(newChunk);
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist + y) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY + renderDist - 1) * blockSize.y));
+                FillPlots(newChunk);
             }
         }
         else if(playerY < oldY)
@@ -131,10 +165,12 @@ public class LevelManager : MonoBehaviour {
             for (int y = 0; y < renderDist * 2; y++)
             {
                 GameObject newChunk = Instantiate<GameObject>(block, level);
+                
                 levelMap[y].Insert(0, newChunk);
                 //levelMap[0].Add(newChunk);
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist + y) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist) * blockSize.y));
+                FillPlots(newChunk);
             }
         }
 
