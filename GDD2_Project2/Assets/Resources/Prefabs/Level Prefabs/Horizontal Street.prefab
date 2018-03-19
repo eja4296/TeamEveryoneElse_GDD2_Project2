@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33600391749611804}
   - component: {fileID: 64936349288150362}
   - component: {fileID: 23070822676392628}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33251106710692092}
   - component: {fileID: 64209796018600702}
   - component: {fileID: 23953507553813708}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 33589515965406888}
   - component: {fileID: 64940141457858062}
   - component: {fileID: 23995668850011592}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 33093712518227610}
   - component: {fileID: 64073234817361000}
   - component: {fileID: 23867647073971094}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Horizontal Street
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 33235071213771788}
   - component: {fileID: 64901276613216526}
   - component: {fileID: 23775101974360044}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33183824279666246}
   - component: {fileID: 64598062879868788}
   - component: {fileID: 23887754723769056}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33979960588711154}
   - component: {fileID: 64842923332304538}
   - component: {fileID: 23063167979351832}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 33504715735424846}
   - component: {fileID: 64308236814909740}
   - component: {fileID: 23912869138983086}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 33980873667432744}
   - component: {fileID: 64178102875420146}
   - component: {fileID: 23141577515618124}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Street (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 33829124761901866}
   - component: {fileID: 64277169995495804}
   - component: {fileID: 23754421812867516}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 33703621818358276}
   - component: {fileID: 64795362558590878}
   - component: {fileID: 23935242644360658}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 33622874740691644}
   - component: {fileID: 64257115492744302}
   - component: {fileID: 23942802873464738}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Street (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 33733815719827020}
   - component: {fileID: 64862794222745790}
   - component: {fileID: 23536205663203056}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 33897545381246572}
   - component: {fileID: 64665542735098440}
   - component: {fileID: 23792393050861788}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Intersection
   m_TagString: Untagged
   m_Icon: {fileID: 0}

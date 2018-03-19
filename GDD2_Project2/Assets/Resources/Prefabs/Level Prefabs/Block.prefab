@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33757651237896100}
   - component: {fileID: 64697725642211020}
   - component: {fileID: 23946904760767424}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33715592570736058}
   - component: {fileID: 64901150773362954}
   - component: {fileID: 23098626607914434}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 33197209167815860}
   - component: {fileID: 64427946526567670}
   - component: {fileID: 23704649537038336}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 33270601185067028}
   - component: {fileID: 64563929544869990}
   - component: {fileID: 23574627063583670}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Street
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 33932597164250154}
   - component: {fileID: 64062285380458438}
   - component: {fileID: 23088265096092030}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 33700169540167458}
   - component: {fileID: 64794046518943426}
   - component: {fileID: 23814564892251470}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plot5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 33437754919405290}
   - component: {fileID: 64595070462678624}
   - component: {fileID: 23723227287173278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 33098166891778626}
   - component: {fileID: 64060041884798480}
   - component: {fileID: 23132878231205484}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 33349417707767672}
   - component: {fileID: 64340636407412332}
   - component: {fileID: 23694321201906906}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 33192958009291772}
   - component: {fileID: 64819265546124198}
   - component: {fileID: 23837380305679326}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Street (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 33634979311177180}
   - component: {fileID: 64098298242049524}
   - component: {fileID: 23855530963334046}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 33156825671657320}
   - component: {fileID: 64112111317362414}
   - component: {fileID: 23443432406469688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 33821387559419328}
   - component: {fileID: 64842746385976616}
   - component: {fileID: 23466234552917724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 33728573898378308}
   - component: {fileID: 64879400036940890}
   - component: {fileID: 23915127459700126}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plot8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 33219082055765420}
   - component: {fileID: 64726807834449256}
   - component: {fileID: 23196371391709204}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 33069049059139622}
   - component: {fileID: 64943934748017364}
   - component: {fileID: 23078392380249678}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4858529072443404}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 33146638231193856}
   - component: {fileID: 64843015726154906}
   - component: {fileID: 23461902182980194}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Intersection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 33748969789259854}
   - component: {fileID: 64865851337107242}
   - component: {fileID: 23626185464673200}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 33520139933753790}
   - component: {fileID: 64058875880595702}
   - component: {fileID: 23140888753095344}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 33304053051914634}
   - component: {fileID: 64403580191342092}
   - component: {fileID: 23401466407349576}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Horizontal Street
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 33475860651801032}
   - component: {fileID: 64542258265029822}
   - component: {fileID: 23295892153907230}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 33471025979489786}
   - component: {fileID: 64446971124842818}
   - component: {fileID: 23461850441079716}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 33108748678933318}
   - component: {fileID: 64198171574842234}
   - component: {fileID: 23256789219522858}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sidewalk2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 33935899069175192}
   - component: {fileID: 64607229293951002}
   - component: {fileID: 23964124107357150}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 33563344279911884}
   - component: {fileID: 64235093340093500}
   - component: {fileID: 23225260854531768}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plot6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 33689168261060384}
   - component: {fileID: 64626571463737898}
   - component: {fileID: 23791206833109190}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stripe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 33190791082234220}
   - component: {fileID: 64295730113289818}
   - component: {fileID: 23596362661827350}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Street (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 33251043858924350}
   - component: {fileID: 64786381127489464}
   - component: {fileID: 23313898056077188}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plot7
   m_TagString: Untagged
   m_Icon: {fileID: 0}

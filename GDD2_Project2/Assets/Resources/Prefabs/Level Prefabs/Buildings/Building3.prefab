@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4397486487389306}
   - component: {fileID: 114877290615404814}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 33937990423211620}
   - component: {fileID: 65911336354829840}
   - component: {fileID: 23989087566848866}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

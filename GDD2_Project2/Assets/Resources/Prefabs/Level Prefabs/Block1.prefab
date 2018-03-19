@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23605689365597280}
   - component: {fileID: 114587369805769888}
   - component: {fileID: 65780026323049646}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (3)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 23892644149404370}
   - component: {fileID: 114449165651881576}
   - component: {fileID: 65963237662377756}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (7)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 33265467897651736}
   - component: {fileID: 64691357137637548}
   - component: {fileID: 23826672604432874}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Block1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 23577814698651062}
   - component: {fileID: 114359390278982522}
   - component: {fileID: 65491238001147006}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (8)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 23656833673631936}
   - component: {fileID: 114348567425934730}
   - component: {fileID: 65596663895729122}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (2)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 23772120900891350}
   - component: {fileID: 114194497275990544}
   - component: {fileID: 65205506931757890}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (11)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 23345404500650874}
   - component: {fileID: 114503081073855094}
   - component: {fileID: 65020063152274406}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (1)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 23585369837996386}
   - component: {fileID: 114715103725359794}
   - component: {fileID: 65733336751083386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (9)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 23384689864636818}
   - component: {fileID: 114712679107824778}
   - component: {fileID: 65849277827669282}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (10)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 23797010547924998}
   - component: {fileID: 114060570587610598}
   - component: {fileID: 65237516373447882}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (6)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 23282007661570376}
   - component: {fileID: 114326684048723300}
   - component: {fileID: 65406725928798566}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (5)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 23257970800251576}
   - component: {fileID: 114110588130246158}
   - component: {fileID: 65401855223074632}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1 (4)
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 23095245686433872}
   - component: {fileID: 114983768482454870}
   - component: {fileID: 65203084531445940}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Building 1
   m_TagString: obstacle
   m_Icon: {fileID: 0}
