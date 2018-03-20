@@ -20,6 +20,8 @@ public class Robber : Character {
 	private AudioSource walkAudio;
 	private AudioSource shootAudio;
 
+	public Animator animator;
+
 	// Use this for initialization
 	override public void Start () {
 		movementSpeed = 500f;
@@ -82,24 +84,28 @@ public class Robber : Character {
 			Vector3 moveVec = transform.forward * movementSpeed;
 			Move (moveVec);
 			moving = true;
+			animator.Play("Move");
 		}
 		// Backward (S)
 		if(Input.GetKey(KeyCode.S)){
 			Vector3 moveVec = transform.forward  * -movementSpeed;
 			Move (moveVec);
 			moving = true;
+			animator.Play("Move");
 		}
 		// Left (A)
 		if(Input.GetKey(KeyCode.A)){
 			Vector3 moveVec = transform.right * -movementSpeed;
 			Move (moveVec);
 			moving = true;
+			animator.Play("Move");
 		}
 		// Right (D)
 		if(Input.GetKey(KeyCode.D)){
 			Vector3 moveVec = transform.right * movementSpeed;
 			Move (moveVec);
 			moving = true;
+			animator.Play("Move");
 		}
 
 		if (moving && walkAudio.isPlaying == false) {

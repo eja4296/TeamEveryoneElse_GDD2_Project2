@@ -1032,6 +1032,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &970683169 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95065502899876280, guid: e4e883372bf49704a9a05033c66ae4a5,
+    type: 2}
+  m_PrefabInternal: {fileID: 2069985126}
 --- !u!82 &970683170
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2258,6 +2263,16 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 95065502899876280, guid: e4e883372bf49704a9a05033c66ae4a5,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a71447b38713ae04c982492c674a0055, type: 2}
+    - target: {fileID: 114764516800611908, guid: e4e883372bf49704a9a05033c66ae4a5,
+        type: 2}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 970683169}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e4e883372bf49704a9a05033c66ae4a5, type: 2}
   m_IsPrefabParent: 0
