@@ -53,7 +53,7 @@ public class LevelManager : MonoBehaviour {
         oldX = playerX;
         oldY = playerY;
         foreach(NavMeshSurface nms in surfaces) {
-            nms.BuildNavMesh();
+            //nms.BuildNavMesh();
         }
     }
     public void FillPlots(GameObject newChunk)
