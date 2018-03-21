@@ -26,8 +26,6 @@ public class CameraMovement : MonoBehaviour {
     {
         float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
 
-        float vertical = Input.GetAxis("Mouse Y") * rotateSpeed;
-
         target.transform.Rotate(0, horizontal, 0);
 
         float desiredAngle = target.transform.eulerAngles.y;
