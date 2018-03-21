@@ -106,10 +106,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 679, y: 492}
+  m_MinSize: {x: 681, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 3053
+  controlID: 10
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -130,10 +130,10 @@ MonoBehaviour:
     y: 0
     width: 1498
     height: 947
-  m_MinSize: {x: 404, y: 492}
+  m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 3054
+  controlID: 11
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -154,10 +154,10 @@ MonoBehaviour:
     y: 0
     width: 1498
     height: 513
-  m_MinSize: {x: 404, y: 221}
-  m_MaxSize: {x: 8004, y: 4021}
+  m_MinSize: {x: 406, y: 221}
+  m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 3055
+  controlID: 12
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -176,8 +176,8 @@ MonoBehaviour:
     y: 0
     width: 372
     height: 513
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -366,23 +366,23 @@ MonoBehaviour:
     height: 492
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: e4bccbffdea0cbff268ecbff
-    m_LastClickedID: -3437018
-    m_ExpandedIDs: 2ce3cbff0c72ccff1072ccff8e08e8ff9208e8ffd008e8ffd408e8ffec09e8ff2ce9e8ff30e9e8ff34c7eafff26deefff66deeff9a6eeeffa86feeff2838f4ff7838f4ff4039f4ff14daf6ff18daf6ffbcdaf6ffcadbf6ff545bf8ff585bf8ffe45bf8ffde5cf8ff105ef8ff6a5ef8ffa65ef8ff76cff8ffd6baf9ffcac0f9ffee44fbffa4fbffffa6fbffff000000009a290000
+    m_SelectedIDs: 34faffff
+    m_LastClickedID: -1484
+    m_ExpandedIDs: aa6af2ff9a77f2ff787af2ffae7af2ff7a7bf2ff3c8cf2ff9c89f6ff86a5f7ff9cc3f7ffc46ffaffc296faff56dbfaffb0dbfafff0dbfaff80e5faffc0e5faff30e6faff86e6faff94e6faff60e7faff10eefaff7eeefaffb4eefaff80effaff20f3faff7cf3faff94f3faff60f4faff80f4fafff4f4faff34f5faff00f6faff0ef2fbff66f2fbff74f2fbff40f3fbff3e37feffa6fbffff00000000182c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Robber
+      m_OriginalName: Robber
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 11294
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 4
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -418,14 +418,14 @@ MonoBehaviour:
     width: 1122
     height: 492
   m_SceneLighting: 1
-  lastFramingTime: 21793.260090372925
+  lastFramingTime: 4385.397938053724
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.5742664, y: 11.628323, z: -5.181588}
+    m_Target: {x: -26.84721, y: -12.663818, z: 0.6290283}
     speed: 2
-    m_Value: {x: -1.5742664, y: 11.628323, z: -5.181588}
+    m_Value: {x: -26.84721, y: -12.663818, z: 0.6290283}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -448,13 +448,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.19386528, y: 0.047739185, z: -0.009030752, w: 0.97983855}
+    m_Target: {x: 0.081913576, y: -0.8654898, z: 0.15119597, w: 0.47057074}
     speed: 2
-    m_Value: {x: 0.19386259, y: 0.04773852, z: -0.009030626, w: 0.9798249}
+    m_Value: {x: 0.08191033, y: -0.86545545, z: 0.15118997, w: 0.47055206}
   m_Size:
-    m_Target: 40.416584
+    m_Target: 176.50705
     speed: 2
-    m_Value: 40.416584
+    m_Value: 176.50705
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -572,19 +572,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Resources/Prefabs/Level Prefabs/Buildings
+    - Assets/Resources/Prefabs/Level Prefabs
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/Prefabs/Level Prefabs/Buildings
+  - Assets/Resources/Prefabs/Level Prefabs
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\Documents\Gdd2\GDD2_Project2
+  m_LastProjectPath: C:\Users\Joey\Documents\GDD2\GDD2_Project2
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3a290000
-    m_LastClickedID: 10554
-    m_ExpandedIDs: 0000000090270000a4270000bc2700000c29000014290000202900002e29000042290000ae2b000000ca9a3bffffff7f
+    m_SelectedIDs: 002b0000
+    m_LastClickedID: 11008
+    m_ExpandedIDs: 00000000fa2700000e28000032280000002b00000a2b0000162b0000362b0000622b0000e62e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -612,7 +612,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000090270000a4270000bc2700000c29000014290000202900002e29000042290000ae2b000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000fa2700000e28000032280000002b00000a2b0000162b0000362b0000622b0000e62e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -640,7 +640,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: aec3f8ff
+    m_ExpandedInstanceIDs: aec3f8ffa6280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

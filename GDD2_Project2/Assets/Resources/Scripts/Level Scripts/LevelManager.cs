@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class LevelManager : MonoBehaviour {
     //list of all building objects
     public List<GameObject> buildings;
@@ -25,33 +25,36 @@ public class LevelManager : MonoBehaviour {
 
     public Vector2 PlotSize;
 
+    public List<NavMeshSurface> surfaces;
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         //initalize all buildings
         buildings = new List<GameObject>(Resources.LoadAll<GameObject>("Prefabs/Level Prefabs/Buildings"));
         //calculate half sizes
         block = Resources.Load<GameObject>("Prefabs/Level Prefabs/block");
         levelMap = new List<List<GameObject>>();
-        while (levelMap.Count < renderDist * 2)
-        {
+        while (levelMap.Count < renderDist * 2) {
             levelMap.Add(new List<GameObject>());
         }
-        for (int x = 0; x < levelMap.Count; x++)
-        {
-            for (int y = 0; y < renderDist * 2; y++)
-            {
+        for (int x = 0; x < levelMap.Count; x++) {
+            for (int y = 0; y < renderDist * 2; y++) {
                 GameObject newChunk = Instantiate<GameObject>(block, level);
+                newChunk.transform.parent = gameObject.transform;
                 levelMap[x].Add(newChunk);
                 //position it around player
-                newChunk.transform.position = new Vector3((renderDist * blockSize.x *  -1) + (x * blockSize.x), 0f, (renderDist * blockSize.y * -1) + (y * blockSize.y));
+                newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + (x * blockSize.x), 0f, (renderDist * blockSize.y * -1) + (y * blockSize.y));
                 FillPlots(newChunk);
+                surfaces.Add(newChunk.GetComponent<NavMeshSurface>());
             }
         }
         playerX = (int)((player.transform.position.x + ((renderDist + .5f) * blockSize.x)) / blockSize.x);
         playerY = (int)((player.transform.position.z + ((renderDist + .5f) * blockSize.y)) / blockSize.y);
         oldX = playerX;
         oldY = playerY;
-   
+        foreach(NavMeshSurface nms in surfaces) {
+            nms.BuildNavMesh();
+        }
     }
     public void FillPlots(GameObject newChunk)
     {
@@ -70,12 +73,14 @@ public class LevelManager : MonoBehaviour {
             Debug.Log("MovableX: " + movableX + ", MovableY:" + movableY);
             Debug.Log(move);
             newBuilding.transform.position = o.transform.position + move;
-        }
+            //surfaces.Add(newBuilding.GetComponent<NavMeshSurface>());
+        }   
         //levelMap[levelMap.Count - 1].Add(newChunk);
     }
     // Update is called once per frame
     void Update()
     {
+        
         //update chunk location
         playerX = (int)((player.transform.position.x + ((renderDist + .5f) * blockSize.x)) / blockSize.x);
         playerY = (int)((player.transform.position.z + ((renderDist + .5f) * blockSize.y)) / blockSize.y);
@@ -88,6 +93,7 @@ public class LevelManager : MonoBehaviour {
             levelMap.RemoveAt(0);
             foreach(GameObject e in oldObjs)
             {
+                surfaces.Remove(e.GetComponent<NavMeshSurface>());
                 Destroy(e);
             }
             levelMap.Add(new List<GameObject>());
@@ -99,6 +105,8 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX + renderDist - 1) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
                 FillPlots(newChunk);
+                newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
+                
             }
         }
         else if(playerX < oldX)
@@ -107,6 +115,7 @@ public class LevelManager : MonoBehaviour {
             levelMap.RemoveAt(levelMap.Count-1);
             foreach (GameObject e in oldObjs)
             {
+                surfaces.Remove(e.GetComponent<NavMeshSurface>());
                 Destroy(e);
             }
             levelMap.Insert(0,new List<GameObject>());
@@ -118,6 +127,8 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
                 FillPlots(newChunk);
+                newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
+                
             }
         }
 
@@ -133,6 +144,7 @@ public class LevelManager : MonoBehaviour {
             }
             foreach (GameObject e in oldObjs)
             {
+                surfaces.Remove(e.GetComponent<NavMeshSurface>());
                 Destroy(e);
             }
 
@@ -145,6 +157,7 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist + y) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY + renderDist - 1) * blockSize.y));
                 FillPlots(newChunk);
+                newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
             }
         }
         else if(playerY < oldY)
@@ -156,9 +169,11 @@ public class LevelManager : MonoBehaviour {
             {
                 oldObjs.Add(levelMap[i][levelMap.Count - 1]);
                 levelMap[i].Remove(oldObjs[oldObjs.Count-1]);
+                
             }
             foreach (GameObject e in oldObjs)
             {
+                surfaces.Remove(e.GetComponent<NavMeshSurface>());
                 Destroy(e);
             }
             
@@ -171,13 +186,14 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist + y) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist) * blockSize.y));
                 FillPlots(newChunk);
+                newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
             }
         }
 
         //update old variables
         oldX = playerX;
         oldY = playerY;
-
+        
     }
     
 }
