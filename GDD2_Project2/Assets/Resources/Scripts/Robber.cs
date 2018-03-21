@@ -13,7 +13,14 @@ public class Robber : Character {
 	public bool shooting;
 	public GameObject bulletPrefab;
 
+	public bool moving;
+
 	private CharacterController charController;
+	public AudioSource[] robberAudio;
+	private AudioSource walkAudio;
+	private AudioSource shootAudio;
+
+	public Animator animator;
 
 	// Use this for initialization
 	override public void Start () {
@@ -24,6 +31,11 @@ public class Robber : Character {
 		bullets = new List<GameObject> ();
 		shooting = false;
 		charController = this.GetComponent<CharacterController> ();
+		robberAudio = this.GetComponents<AudioSource> ();
+		walkAudio = robberAudio [1];
+		shootAudio = robberAudio [0];
+		walkAudio.loop = true;
+		moving = false;
 	}
 	
 	// Update is called once per frame
@@ -44,6 +56,8 @@ public class Robber : Character {
 
 	// Get User Input
 	void GetInput(){
+		moving = false;
+
 		// Get the mouse position and find where it hits in the game
 		/*Vector3 mousePos = Input.mousePosition;
 		Ray mouseRay = camera.ScreenPointToRay (mousePos);
@@ -69,21 +83,37 @@ public class Robber : Character {
 		if(Input.GetKey(KeyCode.W)){
 			Vector3 moveVec = transform.forward * movementSpeed;
 			Move (moveVec);
+			moving = true;
+			animator.Play("Move");
 		}
 		// Backward (S)
 		if(Input.GetKey(KeyCode.S)){
 			Vector3 moveVec = transform.forward  * -movementSpeed;
 			Move (moveVec);
+			moving = true;
+			animator.Play("Move");
 		}
 		// Left (A)
 		if(Input.GetKey(KeyCode.A)){
 			Vector3 moveVec = transform.right * -movementSpeed;
 			Move (moveVec);
+			moving = true;
+			animator.Play("Move");
 		}
 		// Right (D)
 		if(Input.GetKey(KeyCode.D)){
 			Vector3 moveVec = transform.right * movementSpeed;
 			Move (moveVec);
+			moving = true;
+			animator.Play("Move");
+		}
+
+		if (moving && walkAudio.isPlaying == false) {
+			walkAudio.time = 0.25f;
+			walkAudio.Play ();
+		}
+		else if (!moving) {
+			walkAudio.Stop ();
 		}
 
 	}
@@ -107,5 +137,6 @@ public class Robber : Character {
 		newBullet.GetComponent<Bullet> ().direction = new Vector3(this.transform.forward.x, 0f, this.transform.forward.z);
 		bullets.Add (newBullet);
 		shooting = true;
+		shootAudio.Play ();
 	}
 }
