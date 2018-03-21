@@ -105,7 +105,7 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX + renderDist - 1) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
                 FillPlots(newChunk);
-                newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
+                //newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
                 
             }
         }
@@ -127,7 +127,7 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
                 FillPlots(newChunk);
-                newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
+                //newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
                 
             }
         }
@@ -157,7 +157,7 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist + y) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY + renderDist - 1) * blockSize.y));
                 FillPlots(newChunk);
-                newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
+                //newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
             }
         }
         else if(playerY < oldY)
@@ -186,7 +186,7 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX - renderDist + y) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist) * blockSize.y));
                 FillPlots(newChunk);
-                newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
+                //newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
             }
         }
 
