@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 public class LevelManager : MonoBehaviour {
-    //list of all building objects
+    //list of all building prefabs
     public List<GameObject> buildings;
+    //cop prefab
+    public GameObject cop;
+
     //stores player location
     public Transform player;
     //stores level transform to parent new level elements
     public Transform level;
 
+    //percentage from 0-100 of how often plots spawn completely empty
+    public float emptyPlotPercentage;
+    //percentage chance of spawning on each waypoint. THERE ARE 37 WAYPOINTS PER PLOT
+    public float spawnPercentage;
     //2d list of levelmap
     List<List<GameObject>> levelMap;
 
@@ -25,14 +32,16 @@ public class LevelManager : MonoBehaviour {
 
     public Vector2 PlotSize;
 
-    public List<NavMeshSurface> surfaces;
-
     // Use this for initialization
     void Start() {
         //initalize all buildings
         buildings = new List<GameObject>(Resources.LoadAll<GameObject>("Prefabs/Level Prefabs/Buildings"));
-        //calculate half sizes
+        
+        //load prefabs
         block = Resources.Load<GameObject>("Prefabs/Level Prefabs/block");
+        cop = Resources.Load<GameObject>("Prefabs/Cop");
+        
+        //initialize levelmap list
         levelMap = new List<List<GameObject>>();
         while (levelMap.Count < renderDist * 2) {
             levelMap.Add(new List<GameObject>());
@@ -45,16 +54,12 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + (x * blockSize.x), 0f, (renderDist * blockSize.y * -1) + (y * blockSize.y));
                 FillPlots(newChunk);
-                surfaces.Add(newChunk.GetComponent<NavMeshSurface>());
             }
         }
         playerX = (int)((player.transform.position.x + ((renderDist + .5f) * blockSize.x)) / blockSize.x);
         playerY = (int)((player.transform.position.z + ((renderDist + .5f) * blockSize.y)) / blockSize.y);
         oldX = playerX;
         oldY = playerY;
-        foreach(NavMeshSurface nms in surfaces) {
-            //nms.BuildNavMesh();
-        }
     }
     public void FillPlots(GameObject newChunk)
     {
@@ -63,19 +68,33 @@ public class LevelManager : MonoBehaviour {
         {
             plots.Add(newChunk.transform.Find("Plots").transform.Find("Plot" + i).gameObject);
         }
-        foreach (GameObject o in plots)
-        {
-            GameObject newBuilding = Instantiate(buildings[Random.Range(0, buildings.Count)]);
-            newBuilding.transform.parent = o.transform;
-            float movableX = PlotSize.x - newBuilding.GetComponent<Building>().size.x;
-            float movableY = PlotSize.y - newBuilding.GetComponent<Building>().size.z;
-            Vector3 move = new Vector3(Random.Range(-movableX / 2f, movableX/2f) , 0f, Random.Range(-movableY / 2f, movableY) );
-            Debug.Log("MovableX: " + movableX + ", MovableY:" + movableY);
-            Debug.Log(move);
-            newBuilding.transform.position = o.transform.position + move;
-            //surfaces.Add(newBuilding.GetComponent<NavMeshSurface>());
-        }   
+        if(Random.Range(0f,100f) > emptyPlotPercentage) {
+            foreach (GameObject o in plots) {
+                GameObject newBuilding = Instantiate(buildings[Random.Range(0, buildings.Count)]);
+                newBuilding.transform.parent = o.transform;
+                float movableX = (PlotSize.x - newBuilding.GetComponent<Building>().size.x) / 2f;
+                float movableY = (PlotSize.y - newBuilding.GetComponent<Building>().size.z) / 2f;
+                Vector3 move = new Vector3(Random.Range(-movableX, movableX), 0f, Random.Range(-movableY, movableY));
+                newBuilding.transform.position = o.transform.position + move;
+            }
+        }
+        //fill in list of waypoints
+        List<GameObject> waypoints = new List<GameObject>();
+        foreach(Transform c in newChunk.transform.GetChild(1).GetChild(0)) {
+            waypoints.Add(c.gameObject);
+        }
+        for(int i = 0; i < waypoints.Count; i++) {
+            if (Random.Range(0f,100f) < spawnPercentage && Vector3.Distance(player.transform.position, waypoints[i].transform.position) >= 15f) {
+                GameObject newCop = Instantiate(cop, waypoints[i].transform);
+                newCop.transform.parent = waypoints[i].transform;
+                newCop.transform.position = new Vector3(waypoints[i].transform.position.x, .2f, waypoints[i].transform.position.z);
+                Debug.LogWarning("Spawned cop!");
+            }
+        }
         //levelMap[levelMap.Count - 1].Add(newChunk);
+    }
+    public void SpawnCops(GameObject newChunk) {
+
     }
     // Update is called once per frame
     void Update()
@@ -93,7 +112,6 @@ public class LevelManager : MonoBehaviour {
             levelMap.RemoveAt(0);
             foreach(GameObject e in oldObjs)
             {
-                surfaces.Remove(e.GetComponent<NavMeshSurface>());
                 Destroy(e);
             }
             levelMap.Add(new List<GameObject>());
@@ -105,7 +123,6 @@ public class LevelManager : MonoBehaviour {
                 //position it around player
                 newChunk.transform.position = new Vector3((renderDist * blockSize.x * -1) + ((playerX + renderDist - 1) * blockSize.x), 0f, (renderDist * blockSize.y * -1) + ((playerY - renderDist + y) * blockSize.y));
                 FillPlots(newChunk);
-                //newChunk.GetComponent<NavMeshSurface>().BuildNavMesh();
                 
             }
         }
@@ -115,7 +132,6 @@ public class LevelManager : MonoBehaviour {
             levelMap.RemoveAt(levelMap.Count-1);
             foreach (GameObject e in oldObjs)
             {
-                surfaces.Remove(e.GetComponent<NavMeshSurface>());
                 Destroy(e);
             }
             levelMap.Insert(0,new List<GameObject>());
@@ -144,7 +160,6 @@ public class LevelManager : MonoBehaviour {
             }
             foreach (GameObject e in oldObjs)
             {
-                surfaces.Remove(e.GetComponent<NavMeshSurface>());
                 Destroy(e);
             }
 
@@ -169,11 +184,9 @@ public class LevelManager : MonoBehaviour {
             {
                 oldObjs.Add(levelMap[i][levelMap.Count - 1]);
                 levelMap[i].Remove(oldObjs[oldObjs.Count-1]);
-                
             }
             foreach (GameObject e in oldObjs)
             {
-                surfaces.Remove(e.GetComponent<NavMeshSurface>());
                 Destroy(e);
             }
             
