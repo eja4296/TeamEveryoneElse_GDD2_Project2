@@ -4,6 +4,12 @@ using UnityEngine;
 
 // Robber class
 // Inherit Character base class
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// Robber class
+// Inherit Character base class
 public class Robber : Character {
 	// Attributes
 	public Camera camera;
@@ -22,6 +28,9 @@ public class Robber : Character {
 
 	public Animator animator;
 
+	public GameObject pauseMenu;
+	public bool paused;
+
 	// Use this for initialization
 	override public void Start () {
 		movementSpeed = 500f;
@@ -36,8 +45,10 @@ public class Robber : Character {
 		shootAudio = robberAudio [0];
 		walkAudio.loop = true;
 		moving = false;
+		pauseMenu = GameObject.Find ("PauseMenu");
+		paused = false;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		GetInput ();
@@ -74,46 +85,72 @@ public class Robber : Character {
 			}
 		}
         */
-		if (Input.GetMouseButtonDown (0)) {
-			Shoot ();
-		}
-			
-		// Handle Movement
-		// Forward (W)
-		if(Input.GetKey(KeyCode.W)){
-			Vector3 moveVec = transform.forward * movementSpeed;
-			Move (moveVec);
-			moving = true;
-			animator.Play("Move");
-		}
-		// Backward (S)
-		if(Input.GetKey(KeyCode.S)){
-			Vector3 moveVec = transform.forward  * -movementSpeed;
-			Move (moveVec);
-			moving = true;
-			animator.Play("Move");
-		}
-		// Left (A)
-		if(Input.GetKey(KeyCode.A)){
-			Vector3 moveVec = transform.right * -movementSpeed;
-			Move (moveVec);
-			moving = true;
-			animator.Play("Move");
-		}
-		// Right (D)
-		if(Input.GetKey(KeyCode.D)){
-			Vector3 moveVec = transform.right * movementSpeed;
-			Move (moveVec);
-			moving = true;
-			animator.Play("Move");
+
+		if (!paused) {
+			if (Input.GetMouseButtonDown (0)) {
+				Shoot ();
+			}
+
+			// Handle Movement
+			// Forward (W)
+			if(Input.GetKey(KeyCode.W)){
+				Vector3 moveVec = transform.forward * movementSpeed;
+				Move (moveVec);
+				moving = true;
+				animator.Play("Move");
+			}
+			// Backward (S)
+			if(Input.GetKey(KeyCode.S)){
+				Vector3 moveVec = transform.forward  * -movementSpeed;
+				Move (moveVec);
+				moving = true;
+				animator.Play("Move");
+			}
+			// Left (A)
+			if(Input.GetKey(KeyCode.A)){
+				Vector3 moveVec = transform.right * -movementSpeed;
+				Move (moveVec);
+				moving = true;
+				animator.Play("Move");
+			}
+			// Right (D)
+			if(Input.GetKey(KeyCode.D)){
+				Vector3 moveVec = transform.right * movementSpeed;
+				Move (moveVec);
+				moving = true;
+				animator.Play("Move");
+			}
+
+			if (moving && walkAudio.isPlaying == false) {
+				walkAudio.time = 0.25f;
+				walkAudio.Play ();
+			}
+			else if (!moving) {
+				walkAudio.Stop ();
+			}
+
+
 		}
 
-		if (moving && walkAudio.isPlaying == false) {
-			walkAudio.time = 0.25f;
-			walkAudio.Play ();
-		}
-		else if (!moving) {
-			walkAudio.Stop ();
+		if(Input.GetKeyDown(KeyCode.P)){
+			if (paused == false) {
+				pauseMenu.GetComponent<CanvasGroup> ().alpha = 1;
+				pauseMenu.GetComponent<CanvasGroup> ().interactable = true;
+				pauseMenu.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+				Time.timeScale = 0f;
+				paused = true;
+				if (moving) {
+					moving = false;
+					walkAudio.Stop ();
+				}
+			} else {
+				pauseMenu.GetComponent<CanvasGroup> ().alpha = 0;
+				pauseMenu.GetComponent<CanvasGroup> ().interactable = false;
+				pauseMenu.GetComponent<CanvasGroup> ().blocksRaycasts = false;
+				paused = false;
+				Time.timeScale = 1f;
+			}
+
 		}
 
 	}

@@ -24,15 +24,23 @@ public class CameraMovement : MonoBehaviour {
     //look camera code from code.tutsplus.com 
     void Update()
     {
-        float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
+		if (robber.GetComponent<Robber> ().paused == false) {
+			Cursor.lockState = CursorLockMode.Confined;
+			Cursor.visible = false;
+			float horizontal = Input.GetAxis ("Mouse X") * rotateSpeed;
 
-        target.transform.Rotate(0, horizontal, 0);
+			target.transform.Rotate (0, horizontal, 0);
 
-        float desiredAngle = target.transform.eulerAngles.y;
-        Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
-        transform.position = target.transform.position - (rotation* new Vector3(0f, -cameraHeight, cameraOffset));
+			float desiredAngle = target.transform.eulerAngles.y;
+			Quaternion rotation = Quaternion.Euler (0, desiredAngle, 0);
+			transform.position = target.transform.position - (rotation * new Vector3 (0f, -cameraHeight, cameraOffset));
 
-        transform.LookAt(target.transform);
+			transform.LookAt (target.transform);
+		} else {
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+		}
+        
     }
 
 }
