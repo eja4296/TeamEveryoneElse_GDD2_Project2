@@ -78,23 +78,26 @@ public class LevelManager : MonoBehaviour {
                 newBuilding.transform.position = o.transform.position + move;
             }
         }
-        //fill in list of waypoints
-        List<GameObject> waypoints = new List<GameObject>();
-        foreach(Transform c in newChunk.transform.GetChild(1).GetChild(0)) {
-            waypoints.Add(c.gameObject);
-        }
-        for(int i = 0; i < waypoints.Count; i++) {
-            if (Random.Range(0f,100f) < spawnPercentage && Vector3.Distance(player.transform.position, waypoints[i].transform.position) >= 15f) {
-                GameObject newCop = Instantiate(cop, waypoints[i].transform);
-                newCop.transform.parent = waypoints[i].transform;
-                newCop.transform.position = new Vector3(waypoints[i].transform.position.x, .2f, waypoints[i].transform.position.z);
-                Debug.LogWarning("Spawned cop!");
-            }
-        }
-        //levelMap[levelMap.Count - 1].Add(newChunk);
+        SpawnCops(newChunk);
     }
     public void SpawnCops(GameObject newChunk) {
-
+        //fill in list of waypoints
+        List<GameObject> waypoints = new List<GameObject>();
+        foreach (Transform c in newChunk.transform.GetChild(1).GetChild(0)) {
+            waypoints.Add(c.gameObject);
+        }
+        for (int i = 0; i < waypoints.Count; i++) {
+            if (Random.Range(0f, 100f) < spawnPercentage && Vector3.Distance(player.transform.position, waypoints[i].transform.position) >= 15f) {
+                GameObject newCop = Instantiate(cop, waypoints[i].transform);
+                newCop.transform.parent = waypoints[i].transform;
+                newCop.transform.position = new Vector3(waypoints[i].transform.position.x, .1f, waypoints[i].transform.position.z);
+                //setup cop script
+                Cop c = newCop.GetComponent<Cop>();
+                c.SetSpawnPoint(waypoints[i]);
+                c.CreatePatrolPath();
+                //Debug.LogWarning("Spawned cop!");
+            }
+        }
     }
     // Update is called once per frame
     void Update()
