@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        Cursor.lockState = CursorLockMode.Locked;   
         //initalize all buildings
         buildings = new List<GameObject>(Resources.LoadAll<GameObject>("Prefabs/Level Prefabs/Buildings"));
         
