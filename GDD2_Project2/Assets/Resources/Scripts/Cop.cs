@@ -7,6 +7,11 @@ public class Cop : MonoBehaviour
     // The target player
     GameObject player;
 
+    // The sphere for the minimap
+    public GameObject minimapSphere;
+    public Material materialBlue;
+    public Material materialRed;
+
     //the path that the cop patrols
     public List<Transform> patrolPath = new List<Transform>();
     bool forwards;
@@ -75,6 +80,13 @@ public class Cop : MonoBehaviour
                 if (flashLight.enabled == true) {
                     flashLight.enabled = false;
                 }
+
+                // Change the cop from red to blue if necessary
+                if(minimapSphere.GetComponent<MeshRenderer>().material != materialBlue)
+                {
+                    minimapSphere.GetComponent<MeshRenderer>().material = materialBlue;
+                }
+
                 //check for player
                 float angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
                 
@@ -152,6 +164,13 @@ public class Cop : MonoBehaviour
                 if(flashLight.enabled == false) {
                     flashLight.enabled = true;
                 }
+
+                // Change the cop from blue to red if necessary
+                if (minimapSphere.GetComponent<MeshRenderer>().material != materialRed)
+                {
+                    minimapSphere.GetComponent<MeshRenderer>().material = materialRed;
+                }
+
                 //check if player is in line of sight
                 angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
                 if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle) {
