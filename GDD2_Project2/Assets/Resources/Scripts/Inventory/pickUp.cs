@@ -6,28 +6,29 @@ public class pickUp : MonoBehaviour
 {
     public GameObject inventoryPanel;
     public GameObject[] inventoryIcons;
-    bool getItem;
     public Transform popUpText;
+    bool active = true;
 
     void OnTriggerEnter(Collider col)
     {
-        if (!getItem)
+        if (col.gameObject.tag == "donut" || col.gameObject.tag == "disguise" || col.gameObject.tag == "boost")
         {
-            if (col.gameObject.tag == "donut" || col.gameObject.tag == "disguise" || col.gameObject.tag == "boost")
-            {
-                popUpText.GetComponent<TextMesh>().text = "Press E to pick up ability";
-                Instantiate(popUpText, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), popUpText.rotation);
-                Debug.Log("enter");
-            }
+            popUpText.GetComponent<TextMesh>().text = "Press E to pick up ability";
+            Instantiate(popUpText, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), popUpText.rotation);
+        }
+
+        if (col.gameObject.tag == "car" || col.gameObject.tag == "dump")
+        {
+            popUpText.GetComponent<TextMesh>().text = "Press E to hide";
+            Instantiate(popUpText, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), popUpText.rotation);
         }
     }
 
     void OnTriggerStay(Collider col)
     {
         //look through children for existing icon
-        if (!getItem && (col.gameObject.tag == "donut" || col.gameObject.tag == "disguise" || col.gameObject.tag == "boost"))
+        if (col.gameObject.tag == "donut" || col.gameObject.tag == "disguise" || col.gameObject.tag == "boost")
         {
-            Debug.Log("in");
             if (Input.GetKeyDown(KeyCode.E))
             {
                 foreach (Transform child in inventoryPanel.transform)
@@ -60,17 +61,36 @@ public class pickUp : MonoBehaviour
                     i = Instantiate(inventoryIcons[2]);
                     i.transform.SetParent(inventoryPanel.transform);
                 }
+            }
+        }
 
-                getItem = false;
+        if (col.gameObject.tag == "car" || col.gameObject.tag == "dump")
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                this.gameObject.SetActive(false);
+                active = false;
             }
         }
     }
 
     void OnTriggerExit(Collider col)
     {
-        popUpText.GetComponent<TextMesh>().text = "";
-        Instantiate(popUpText, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), popUpText.rotation);
-        Debug.Log("Exit");
+        Destroy(popUpText, 1.0f);
     }
 
+    private void Update()
+    {
+        while(!active)
+        {
+            popUpText.GetComponent<TextMesh>().text = "Press E to hide";
+            Instantiate(popUpText, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), popUpText.rotation);
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                active = true;
+                this.gameObject.SetActive(true);
+            }
+        }
+    }
 }

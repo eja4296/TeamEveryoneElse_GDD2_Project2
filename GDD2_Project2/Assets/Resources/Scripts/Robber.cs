@@ -46,11 +46,7 @@ public class Robber : Character {
 		walkAudio.loop = true;
 		moving = false;
 		pauseMenu = GameObject.Find ("PauseMenu");
-		pauseMenu.GetComponent<CanvasGroup> ().alpha = 0;
-		pauseMenu.GetComponent<CanvasGroup> ().interactable = false;
-		pauseMenu.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 		paused = false;
-		Time.timeScale = 1f;
 	}
 
 	// Update is called once per frame

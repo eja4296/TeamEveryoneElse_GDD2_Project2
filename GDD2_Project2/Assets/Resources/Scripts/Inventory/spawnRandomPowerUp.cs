@@ -7,6 +7,8 @@ public class spawnRandomPowerUp : MonoBehaviour
     public spawnBoost boost;
     public spawnDisguise disguise;
     public spawnDonuts donuts;
+    bool getItem = false;
+    Collider col;
 
 	// Use this for initialization
 	void Start ()
@@ -14,6 +16,7 @@ public class spawnRandomPowerUp : MonoBehaviour
         boost = GetComponent<spawnBoost>();
         disguise = GetComponent<spawnDisguise>();
         donuts = GetComponent<spawnDonuts>();
+        col = GetComponent<Collider>();
 
         SpawnRandomPowerUp();
 	}
@@ -45,8 +48,15 @@ public class spawnRandomPowerUp : MonoBehaviour
         }
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void OnTriggerStay(Collider other)
+    {
+        if (!getItem && other.gameObject.tag == "Player")
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                getItem = true;
+                col.enabled = !col.enabled;
+            }
+        }
+    }
 }
