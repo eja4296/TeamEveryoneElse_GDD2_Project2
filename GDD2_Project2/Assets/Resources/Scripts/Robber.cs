@@ -31,6 +31,10 @@ public class Robber : Character {
 	public GameObject pauseMenu;
 	public bool paused;
 
+	public float score;
+	public float distance;
+	public float time;
+
 	// Use this for initialization
 	override public void Start () {
 		movementSpeed = 100f;
@@ -46,13 +50,20 @@ public class Robber : Character {
 		walkAudio.loop = true;
 		moving = false;
 		pauseMenu = GameObject.Find ("PauseMenu");
+		pauseMenu.GetComponent<CanvasGroup> ().alpha = 0;
+		pauseMenu.GetComponent<CanvasGroup> ().interactable = false;
+		pauseMenu.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 		paused = false;
+		Time.timeScale = 1f;
+		score = 0f;
+		distance = 0f;
+		time = 0f;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		GetInput ();
-
+		AddScore ();
 		// Update bullets
 		if (shooting && bullets.Count > 0) {
 			for (int i = 0; i < bullets.Count; i++) {
@@ -164,7 +175,7 @@ public class Robber : Character {
 
 	override public void Move(Vector3 movement){
 		charController.SimpleMove (movement * Time.deltaTime);
-
+		distance += (movement.magnitude * Time.deltaTime) / 100;
 	}
 
 	// Rotate the robber based on mouse
@@ -183,4 +194,16 @@ public class Robber : Character {
 		shooting = true;
 		shootAudio.Play ();
 	}
+
+	void AddScore(){
+		time = Time.timeSinceLevelLoad;
+		score = Mathf.RoundToInt (distance + time);
+	}
+
+	void OnDestroy(){
+		PlayerPrefs.SetInt ("score", (int)score);
+		PlayerPrefs.SetFloat ("distance", distance);
+		PlayerPrefs.SetFloat ("time", time);
+	}
+
 }
