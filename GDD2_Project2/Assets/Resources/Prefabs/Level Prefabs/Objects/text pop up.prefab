@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 102897353254108286}
   m_Layer: 0
   m_Name: text pop up
-  m_TagString: Untagged
+  m_TagString: text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,7 +82,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1672381255831102}
-  m_Text: Press E to hide
+  m_Text: Press E to interact
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1

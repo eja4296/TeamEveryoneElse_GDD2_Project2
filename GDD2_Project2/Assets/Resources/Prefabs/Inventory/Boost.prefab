@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224483326631598338}
   - component: {fileID: 222873603333079800}
   - component: {fileID: 114659870705255120}
+  - component: {fileID: 114848415843084384}
   m_Layer: 5
   m_Name: Boost
   m_TagString: boost
@@ -107,6 +108,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114848415843084384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1069976107156054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3665fc3acc92ad4487796ab19c1fbdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robbie: {fileID: 0}
 --- !u!222 &222677495946219202
 CanvasRenderer:
   m_ObjectHideFlags: 1

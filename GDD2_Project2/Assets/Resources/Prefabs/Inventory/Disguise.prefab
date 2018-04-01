@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224347528102491180}
   - component: {fileID: 222060649310170476}
   - component: {fileID: 114406431346099184}
+  - component: {fileID: 114326118221688500}
   m_Layer: 5
   m_Name: Disguise
   m_TagString: disguise
@@ -45,6 +46,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114326118221688500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1658692482493292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b86ca0836bd1d4e959e8404bbdb480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robber: {fileID: 0}
+  disguise: 0
 --- !u!114 &114355000554002190
 MonoBehaviour:
   m_ObjectHideFlags: 1
