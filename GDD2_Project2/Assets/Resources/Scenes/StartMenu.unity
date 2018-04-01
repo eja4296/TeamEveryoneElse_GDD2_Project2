@@ -216,6 +216,39 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 978017716}
+    - target: {fileID: 114790778775380208, guid: ec05640788e7de64fb6b817fcb98757a,
+        type: 2}
+      propertyPath: m_Text
+      value: '''wasd'' keys - walk
+
+        hold ''shift'' with ''wasd'' keys - sprint
+
+        mouse move - look around
+
+        mouse left click - shoot
+
+        ''e'' key - interact with objects
+
+        ''space'' to leave hiding spot
+
+        ''p'' key - pause game
+
+        ''1'' key - use boost
+
+        ''2'' key - use disguise
+
+        ''3'' key - throw donuts'
+      objectReference: {fileID: 0}
+    - target: {fileID: 224815361132843030, guid: ec05640788e7de64fb6b817fcb98757a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 224423348193846948, guid: ec05640788e7de64fb6b817fcb98757a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 97
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec05640788e7de64fb6b817fcb98757a, type: 2}
   m_IsPrefabParent: 0
