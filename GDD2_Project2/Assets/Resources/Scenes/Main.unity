@@ -1142,6 +1142,11 @@ Prefab:
       propertyPath: robber
       value: 
       objectReference: {fileID: 970683164}
+    - target: {fileID: 114607194963989558, guid: d7a4daf1606a2e64592dfe3d4c420075,
+        type: 2}
+      propertyPath: m_Text
+      value: "Score: \nDistance:\nTime:\nBullets:"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7a4daf1606a2e64592dfe3d4c420075, type: 2}
   m_IsPrefabParent: 0
@@ -2040,6 +2045,7 @@ MonoBehaviour:
   - {fileID: 1069976107156054, guid: 9d163f5b9eabc7b47a49c635000eb1d2, type: 2}
   - {fileID: 1658692482493292, guid: 12e1b3542a169f54eb8c49b783cbf86a, type: 2}
   - {fileID: 1828575949092488, guid: d33be223a19579b49bd499c89e1e23e0, type: 2}
+  text: {fileID: 0}
   popUpText: {fileID: 4783504577538038, guid: 14441f6f8be0899419b4c973a109cbe3, type: 2}
 --- !u!135 &970683173
 SphereCollider:
