@@ -16,6 +16,7 @@ public class Robber : Character {
 	public float height;
 
 	public List<GameObject> bullets;
+    public int shots;
 	public bool shooting;
 	public GameObject bulletPrefab;
 
@@ -60,6 +61,7 @@ public class Robber : Character {
 		score = 0f;
 		distance = 0f;
 		time = 0f;
+        shots = 10;
 	}
 
 	// Update is called once per frame
@@ -102,9 +104,10 @@ public class Robber : Character {
         {
             if (!paused)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && shots > 0)
                 {
                     Shoot();
+                    shots--;
                 }
 
                 if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
