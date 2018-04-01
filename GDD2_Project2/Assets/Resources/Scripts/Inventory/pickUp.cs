@@ -6,21 +6,33 @@ public class pickUp : MonoBehaviour
 {
     public GameObject inventoryPanel;
     public GameObject[] inventoryIcons;
+    GameObject text;
     public Transform popUpText;
     bool active = true;
+    SkinnedMeshRenderer m;
+    Robber robber;
+    float cooldown = 1;
+
+    void Start()
+    {
+        text = GameObject.FindGameObjectWithTag("text");
+        m = GameObject.FindGameObjectWithTag("mesh").GetComponent<SkinnedMeshRenderer>();
+        text.SetActive(false);
+        robber = GetComponent<Robber>();
+    }
 
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "donut" || col.gameObject.tag == "disguise" || col.gameObject.tag == "boost")
         {
-            popUpText.GetComponent<TextMesh>().text = "Press E to pick up ability";
-            Instantiate(popUpText, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), popUpText.rotation);
+            popUpText.GetComponent<TextMesh>().text = "Press E to interact";
+            text.SetActive(true);
         }
 
         if (col.gameObject.tag == "car" || col.gameObject.tag == "dump")
         {
-            popUpText.GetComponent<TextMesh>().text = "Press E to hide";
-            Instantiate(popUpText, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), popUpText.rotation);
+            popUpText.GetComponent<TextMesh>().text = "Press E to interact";
+            text.SetActive(true);
         }
     }
 
@@ -68,28 +80,27 @@ public class pickUp : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                this.gameObject.SetActive(false);
+                m.enabled = false;
                 active = false;
+                robber.moving = false;
             }
         }
     }
 
     void OnTriggerExit(Collider col)
     {
-        Destroy(popUpText, 1.0f);
+        text.SetActive(false);
     }
 
-    private void Update()
+    void Update()
     {
-        while(!active)
+        if(!active)
         {
-            popUpText.GetComponent<TextMesh>().text = "Press E to hide";
-            Instantiate(popUpText, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), popUpText.rotation);
-
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
+                robber.moving = true;
                 active = true;
-                this.gameObject.SetActive(true);
+                m.enabled = true; ;
             }
         }
     }

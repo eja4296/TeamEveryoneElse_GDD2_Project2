@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Cop : MonoBehaviour
 {
@@ -46,6 +47,9 @@ public class Cop : MonoBehaviour
     public Transform spawnPoint;
 
 	public Rigidbody charController;
+    public Robber robber;
+    GameObject[] trash;
+    public useDisguise[] disguise;
 
     enum CopState {
         patrolling,
@@ -67,6 +71,14 @@ public class Cop : MonoBehaviour
         recognitionTimer = maxRecognitionTime;
         flashLight.range = alertSightRadius;
         flashLight.spotAngle = sightAngle + 3;
+        robber = GameObject.FindGameObjectWithTag("Player").GetComponent<Robber>();
+        trash = GameObject.FindGameObjectsWithTag("disguise");
+
+        if (trash.Length <= 0)
+        {
+            for (int i = 0; i < trash.Length; i++)
+                disguise[i] = trash[i].GetComponent<useDisguise>();
+        }
 	}
 	
 	// Update is called once per frame
@@ -203,7 +215,34 @@ public class Cop : MonoBehaviour
             case CopState.attack:
                 break;
         }
+
+        if (disguise.Length <= 0)
+        {
+            if (robber.moving == false)
+                currentState = CopState.patrolling;
+        }
+        else
+        {
+            for (int i = 0; i < disguise.Length; i++)
+            {
+                if (robber.moving == false || disguise[i].disguise == true)
+                    currentState = CopState.patrolling;
+            }
+        }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            Destroy(player);
+            SceneManager.LoadScene("GameOverMenu");
+        }
+
+        if (collision.gameObject.tag == "bullet")
+            Destroy(this.gameObject);
+    }
+
     public void CreatePatrolPath() {
         int PathDepth = Random.Range(3, 7);
         Transform curPoint = spawnPoint;

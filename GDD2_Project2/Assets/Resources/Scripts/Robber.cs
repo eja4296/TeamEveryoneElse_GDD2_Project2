@@ -20,6 +20,7 @@ public class Robber : Character {
 	public GameObject bulletPrefab;
 
 	public bool moving;
+    public bool play;
 
 	private CharacterController charController;
 	public AudioSource[] robberAudio;
@@ -48,7 +49,8 @@ public class Robber : Character {
 		walkAudio = robberAudio [1];
 		shootAudio = robberAudio [0];
 		walkAudio.loop = true;
-		moving = false;
+		moving = true;
+        play = false;
 		pauseMenu = GameObject.Find ("PauseMenu");
 		pauseMenu.GetComponent<CanvasGroup> ().alpha = 0;
 		pauseMenu.GetComponent<CanvasGroup> ().interactable = false;
@@ -78,7 +80,7 @@ public class Robber : Character {
 
 	// Get User Input
 	void GetInput(){
-		moving = false;
+		play = false;
 
 		// Get the mouse position and find where it hits in the game
 		/*Vector3 mousePos = Input.mousePosition;
@@ -96,58 +98,69 @@ public class Robber : Character {
 			}
 		}
         */
+        if (moving)
+        {
+            if (!paused)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Shoot();
+                }
 
-		if (!paused) {
-			if (Input.GetMouseButtonDown (0)) {
-				Shoot ();
-			}
-
-			if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
-				movementSpeed = 200f;
-			} else {
-				movementSpeed = 100f;
-			}
-
-
-			// Handle Movement
-			// Forward (W)
-			if(Input.GetKey(KeyCode.W)){
-				Vector3 moveVec = transform.forward * movementSpeed;
-				Move (moveVec);
-				moving = true;
-				animator.Play("Move");
-			}
-			// Backward (S)
-			if(Input.GetKey(KeyCode.S)){
-				Vector3 moveVec = transform.forward  * -movementSpeed;
-				Move (moveVec);
-				moving = true;
-				animator.Play("Move");
-			}
-			// Left (A)
-			if(Input.GetKey(KeyCode.A)){
-				Vector3 moveVec = transform.right * -movementSpeed;
-				Move (moveVec);
-				moving = true;
-				animator.Play("Move");
-			}
-			// Right (D)
-			if(Input.GetKey(KeyCode.D)){
-				Vector3 moveVec = transform.right * movementSpeed;
-				Move (moveVec);
-				moving = true;
-				animator.Play("Move");
-			}
-
-			if (moving && walkAudio.isPlaying == false) {
-				walkAudio.time = 0.25f;
-				walkAudio.Play ();
-			}
-			else if (!moving) {
-				walkAudio.Stop ();
-			}
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                {
+                    movementSpeed = 200f;
+                }
+                else
+                {
+                    movementSpeed = 100f;
+                }
 
 
+                // Handle Movement
+                // Forward (W)
+                if (Input.GetKey(KeyCode.W))
+                {
+                    Vector3 moveVec = transform.forward * movementSpeed;
+                    Move(moveVec);
+                    play = true;
+                    animator.Play("Move");
+                }
+                // Backward (S)
+                if (Input.GetKey(KeyCode.S))
+                {
+                    Vector3 moveVec = transform.forward * -movementSpeed;
+                    Move(moveVec);
+                    play = true;
+                    animator.Play("Move");
+                }
+                // Left (A)
+                if (Input.GetKey(KeyCode.A))
+                {
+                    Vector3 moveVec = transform.right * -movementSpeed;
+                    Move(moveVec);
+                    play = true;
+                    animator.Play("Move");
+                }
+                // Right (D)
+                if (Input.GetKey(KeyCode.D))
+                {
+                    Vector3 moveVec = transform.right * movementSpeed;
+                    Move(moveVec);
+                    play = true;
+                    animator.Play("Move");
+                }
+
+                if (play && walkAudio.isPlaying == false)
+                {
+                    walkAudio.time = 0.25f;
+                    walkAudio.Play();
+                }
+                else if (!play)
+                {
+                    walkAudio.Stop();
+                }
+            }
 		}
 
 		if(Input.GetKeyDown(KeyCode.P)){

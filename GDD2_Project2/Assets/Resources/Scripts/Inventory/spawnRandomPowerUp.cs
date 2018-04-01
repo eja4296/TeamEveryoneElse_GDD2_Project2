@@ -23,7 +23,7 @@ public class spawnRandomPowerUp : MonoBehaviour
 
     void SpawnRandomPowerUp()
     {
-        int rand = Random.Range(1, 3);
+        int rand = Random.Range(2, 3);
 
         if (rand == 1)
         {
