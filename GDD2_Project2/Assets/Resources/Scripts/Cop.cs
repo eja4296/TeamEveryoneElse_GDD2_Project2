@@ -235,8 +235,12 @@ public class Cop : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            Destroy(player);
-            SceneManager.LoadScene("GameOverMenu");
+            //Destroy(player);
+            //SceneManager.LoadScene("GameOverMenu");
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			Application.LoadLevel("GameOverMenu");
+
         }
 
         if (collision.gameObject.tag == "bullet")

@@ -16,5 +16,6 @@ public class ToGameOver : MonoBehaviour {
 
 	public void OnClick(){
 		Application.LoadLevel ("GameOverMenu");
+
 	}
 }
