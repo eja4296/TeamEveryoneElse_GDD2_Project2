@@ -107,7 +107,7 @@ public class Cop : MonoBehaviour
                 Vector3 dir = player.transform.position - transform.position;
 
                 float angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle && Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber") {
+                if (!player.GetComponent<pickUp>().hidden && Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle && Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber") {
                     lastKnownPos = player.transform.position;
                     currentState = CopState.alert;
                 }
@@ -154,7 +154,7 @@ public class Cop : MonoBehaviour
 
                 dir = player.transform.position - transform.position;
                 angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < pursuitSightAngle && ((Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber")|| Vector3.Distance(player.transform.position, transform.position) < patrolSightRadius/2)) {          
+                if (!player.GetComponent<pickUp>().hidden && Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < pursuitSightAngle && ((Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber")|| Vector3.Distance(player.transform.position, transform.position) < patrolSightRadius/2)) {          
                     lastKnownPos = player.transform.position;
                     pursuitTimer = maxPursuitTime;
                 }else {
@@ -219,24 +219,21 @@ public class Cop : MonoBehaviour
                 charController.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Normalize(lastKnownPos - transform.position)), Time.deltaTime * 10f));
                 charController.MovePosition(transform.position + direction * curSpeed * Time.deltaTime);
                 break;
-            //within attacking range of robber
-            case CopState.attack:
-                break;
         }
 
-        if (disguise.Length <= 0)
+        /*if (disguise.Length <= 0)
         {
             if (robber.moving == false)
-                currentState = CopState.patrolling;
+                player.GetComponent<pickUp>().hidden = true; ;
         }
         else
         {
             for (int i = 0; i < disguise.Length; i++)
             {
                 if (robber.moving == false || disguise[i].disguise == true)
-                    currentState = CopState.patrolling;
+                    player.hidden = true;
             }
-        }
+        }*/
         if(currentState == CopState.patrolling || currentState == CopState.pursuit) {
 
         }

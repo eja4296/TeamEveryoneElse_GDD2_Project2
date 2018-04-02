@@ -12,7 +12,7 @@ public class pickUp : MonoBehaviour
     SkinnedMeshRenderer m;
     Robber robber;
     float cooldown = 1;
-
+    public bool hidden = false;
     void Start()
     {
         text = GameObject.FindGameObjectWithTag("text");
@@ -83,6 +83,7 @@ public class pickUp : MonoBehaviour
                 m.enabled = false;
                 active = false;
                 robber.moving = false;
+                hidden = true;
             }
         }
     }
@@ -100,7 +101,8 @@ public class pickUp : MonoBehaviour
             {
                 robber.moving = true;
                 active = true;
-                m.enabled = true; ;
+                m.enabled = true;
+                hidden = false;
             }
         }
     }

@@ -1045,7 +1045,7 @@ MonoBehaviour:
   materialBlue: {fileID: 2100000, guid: 5af49e88de6a6884c9c99c792047377e, type: 2}
   materialRed: {fileID: 2100000, guid: d48618961195a6046a42f068d74800f9, type: 2}
   patrolPath: []
-  patrolSpeed: 2.3
+  patrolSpeed: 2.5
   pursuitSpeed: 5.5
   patrolSightRadius: 13
   alertSightRadius: 24
