@@ -221,15 +221,13 @@ Prefab:
       propertyPath: m_Text
       value: '''wasd'' keys - walk
 
-        hold ''shift'' with ''wasd'' keys - sprint
+        ''shift'' with ''wasd'' keys - run
 
         mouse move - look around
 
         mouse left click - shoot
 
-        ''e'' key - interact with objects
-
-        ''space'' to leave hiding spot
+        ''e'' key - interact; enter/leave hiding spots
 
         ''p'' key - pause game
 

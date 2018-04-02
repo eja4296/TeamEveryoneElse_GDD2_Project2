@@ -865,11 +865,59 @@ Prefab:
 
         left mouse click - shoot
 
-        ''e'' key - interact
+        ''e'' key - interact; enter/leave hiding spots
 
         ''p'' key - pause
 
+        ''1'' key - use boost
+
+        ''2'' key - use disguise
+
+        ''3'' key - throw donuts
+
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 224001722009978348, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 224992863130213366, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 114550745640468860, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Objective:
+
+
+        -Escape cops roaming
+
+        throughout the city
+
+        -Hide in cars and dumpsters
+
+        -Search trashcans for items
+
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 225387933810459754, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
+        type: 2}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224992863130213366, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224001722009978348, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a8d852a377a1384f9262a7c0bb2efc2, type: 2}
@@ -1096,6 +1144,15 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: "Score: \nDistance:\nTime:"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1032104009825290, guid: d7a4daf1606a2e64592dfe3d4c420075, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224183553491750484, guid: d7a4daf1606a2e64592dfe3d4c420075,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7a4daf1606a2e64592dfe3d4c420075, type: 2}
