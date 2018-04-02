@@ -6,7 +6,7 @@ public class pickUp : MonoBehaviour
 {
     public GameObject inventoryPanel;
     public GameObject[] inventoryIcons;
-    GameObject text;
+    public GameObject text;
     public Transform popUpText;
     bool active = true;
     SkinnedMeshRenderer m;
