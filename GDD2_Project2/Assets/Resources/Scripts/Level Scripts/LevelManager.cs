@@ -19,8 +19,10 @@ public class LevelManager : MonoBehaviour {
     public float spawnPercentage;
     //2d list of levelmap
     List<List<GameObject>> levelMap;
-
+    public GameObject dumpster;
+    public GameObject trashCan;
     public GameObject block;
+    public GameObject car;
 
     //Y axis in vector2 is measurement of Z in game
     public Vector2 blockSize;
@@ -32,8 +34,13 @@ public class LevelManager : MonoBehaviour {
 
     public Vector2 PlotSize;
 
+    //increasing difficulty
+    public float difficultyIncreaseTime;
+    float difficultyTimer;
+
     // Use this for initialization
     void Start() {
+        difficultyTimer = difficultyIncreaseTime;
         Cursor.lockState = CursorLockMode.Locked;   
         //initalize all buildings
         buildings = new List<GameObject>(Resources.LoadAll<GameObject>("Prefabs/Level Prefabs/Buildings"));
@@ -65,9 +72,51 @@ public class LevelManager : MonoBehaviour {
     public void FillPlots(GameObject newChunk)
     {
         List<GameObject> plots = new List<GameObject>();
+        List<GameObject> carSpawns = new List<GameObject>();
+        List<GameObject> garbageSpawns = new List<GameObject>();
+        List<GameObject> dumpsterSpawns = new List<GameObject>();
+
+        GameObject plotObj = newChunk.transform.Find("Plots").gameObject;
+        GameObject carObj = plotObj.transform.Find("Cars").gameObject;
+        GameObject dumpsterObj = plotObj.transform.Find("DumpsterSpawns").gameObject;
+        GameObject garbageObj = plotObj.transform.Find("GarbageSpawns").gameObject;
+
+        
+        for(int i = 1; i <= 30; i++) {
+            carSpawns.Add(carObj.transform.Find("Car" + i).gameObject);
+        }
+        foreach(GameObject o in carSpawns) {
+            if(Random.Range(0.0f, 1f) < .25f) {
+                GameObject newCar = Instantiate(car);
+                newCar.transform.parent = o.transform;
+                newCar.transform.position = o.transform.position + new Vector3(0f, 1f, 0f);
+                newCar.transform.rotation = o.transform.rotation;
+            }
+        }
+        for (int i = 1; i <= 6; i++) {
+            dumpsterSpawns.Add(dumpsterObj.transform.Find("Spawn" + i).gameObject);
+        }
+        foreach(GameObject o in dumpsterSpawns) {
+            if (Random.Range(0.0f, 1f) < .1f) {
+                GameObject newDumpster = Instantiate(dumpster);
+                newDumpster.transform.parent = o.transform;
+                newDumpster.transform.position = o.transform.position + new Vector3(0f, 1f, 0f);
+                newDumpster.transform.position += new Vector3(0f, 0f, Random.Range(-PlotSize.y / 3f, PlotSize.y / 3f));
+            }
+        }
+        for (int i = 1; i <= 4; i++) {
+            garbageSpawns.Add(garbageObj.transform.Find("Spawn" + i).gameObject);
+        }
+        foreach(GameObject o in garbageSpawns) {
+            if (Random.Range(0.0f, 1f) < .4f) {
+                GameObject newGarbage = Instantiate(trashCan);
+                newGarbage.transform.parent = o.transform;
+                newGarbage.transform.position = o.transform.position + new Vector3(0f, 1f, 0f);
+            }
+        }
         for (int i = 1; i <= 8; i++)
         {
-            plots.Add(newChunk.transform.Find("Plots").transform.Find("Plot" + i).gameObject);
+            plots.Add(plotObj.transform.Find("Plot" + i).gameObject);
         }
         if(Random.Range(0f,100f) > emptyPlotPercentage) {
             foreach (GameObject o in plots) {
@@ -103,7 +152,16 @@ public class LevelManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
+        difficultyTimer -= Time.deltaTime;
+        if(difficultyTimer <= 0f) {
+            difficultyTimer = difficultyIncreaseTime;
+            spawnPercentage += .5f;
+            Cop prefab = cop.GetComponent<Cop>();
+            prefab.patrolSpeed += .15f;
+            prefab.pursuitSpeed += .15f;
+            prefab.maxRecognitionTime -= .05f;
+            Debug.Log(cop.GetComponent<Cop>().pursuitSpeed);
+        }
         //update chunk location
         playerX = (int)((player.transform.position.x + ((renderDist + .5f) * blockSize.x)) / blockSize.x);
         playerY = (int)((player.transform.position.z + ((renderDist + .5f) * blockSize.y)) / blockSize.y);

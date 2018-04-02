@@ -38,7 +38,7 @@ public class Robber : Character {
 
 	// Use this for initialization
 	override public void Start () {
-		movementSpeed = 100f;
+		movementSpeed = 200f;
 		rotationSpeed = 3f;
 		direction = new Vector3 (0, 0, 1);
 		height = 1.25f;
@@ -109,11 +109,11 @@ public class Robber : Character {
 
                 if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                 {
-                    movementSpeed = 200f;
+                    movementSpeed = 300f;
                 }
                 else
                 {
-                    movementSpeed = 100f;
+                    movementSpeed = 200f;
                 }
 
 

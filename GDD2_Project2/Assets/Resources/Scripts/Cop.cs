@@ -29,6 +29,7 @@ public class Cop : MonoBehaviour
     public float patrolSightRadius;
     public float alertSightRadius;
     public float sightAngle;
+    public float pursuitSightAngle;
 
     //how long it takes cops to go back to patrol mode
     float alertTimer;
@@ -100,9 +101,13 @@ public class Cop : MonoBehaviour
                 }
 
                 //check for player
+                //check if player is obstructed
+                RaycastHit hit;
+
+                Vector3 dir = player.transform.position - transform.position;
+
                 float angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-                
-                if (Vector3.Distance(player.transform.position, transform.position) < patrolSightRadius && angle < sightAngle) {
+                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle && Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber") {
                     lastKnownPos = player.transform.position;
                     currentState = CopState.alert;
                 }
@@ -147,8 +152,9 @@ public class Cop : MonoBehaviour
                 if(curSpeed < pursuitSpeed)
                     curSpeed = pursuitSpeed;
 
+                dir = player.transform.position - transform.position;
                 angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle) {          
+                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < pursuitSightAngle && ((Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber")|| Vector3.Distance(player.transform.position, transform.position) < patrolSightRadius/2)) {          
                     lastKnownPos = player.transform.position;
                     pursuitTimer = maxPursuitTime;
                 }else {
@@ -183,10 +189,12 @@ public class Cop : MonoBehaviour
                     minimapSphere.GetComponent<MeshRenderer>().material = materialRed;
                 }
 
-                //check if player is in line of sight
+                //check if player is obstructed
+                dir = player.transform.position - transform.position;
+
                 angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle) {
-                    
+                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle && Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber") {
+
                     recognitionTimer -= Time.deltaTime;
 
                     //reset alert timer if we see the player again
@@ -228,6 +236,9 @@ public class Cop : MonoBehaviour
                 if (robber.moving == false || disguise[i].disguise == true)
                     currentState = CopState.patrolling;
             }
+        }
+        if(currentState == CopState.patrolling || currentState == CopState.pursuit) {
+
         }
     }
 

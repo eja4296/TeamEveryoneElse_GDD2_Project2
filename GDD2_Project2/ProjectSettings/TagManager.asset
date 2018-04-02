@@ -6,6 +6,15 @@ TagManager:
   tags:
   - enemy
   - obstacle
+  - mesh
+  - bullet
+  - boost
+  - disguise
+  - donut
+  - text
+  - trashcan
+  - car
+  - Robber
   layers:
   - Default
   - TransparentFX

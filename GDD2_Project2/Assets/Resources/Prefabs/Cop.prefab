@@ -1045,17 +1045,20 @@ MonoBehaviour:
   materialBlue: {fileID: 2100000, guid: 5af49e88de6a6884c9c99c792047377e, type: 2}
   materialRed: {fileID: 2100000, guid: d48618961195a6046a42f068d74800f9, type: 2}
   patrolPath: []
-  patrolSpeed: 4.5
-  pursuitSpeed: 9.75
+  patrolSpeed: 2.3
+  pursuitSpeed: 5.5
   patrolSightRadius: 13
   alertSightRadius: 24
   sightAngle: 30
+  pursuitSightAngle: 70
   maxAlertTime: 4
-  maxRecognitionTime: 0.75
+  maxRecognitionTime: 1.5
   maxPursuitTime: 10
   flashLight: {fileID: 108834332524004634}
   spawnPoint: {fileID: 0}
   charController: {fileID: 54296077856866922}
+  robber: {fileID: 0}
+  disguise: []
 --- !u!135 &135662493104778796
 SphereCollider:
   m_ObjectHideFlags: 1
