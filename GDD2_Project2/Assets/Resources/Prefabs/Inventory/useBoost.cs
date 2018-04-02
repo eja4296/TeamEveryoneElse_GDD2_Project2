@@ -20,6 +20,8 @@ public class useBoost : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log(boost);
+
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
             if (System.Int32.Parse(this.transform.Find("Text").GetComponent<Text>().text) > 0)
@@ -34,9 +36,9 @@ public class useBoost : MonoBehaviour
             if (timer >= 0)
             {
                 if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                    rob.movementSpeed = 400f;
+                    rob.movementSpeed = 450f;
                 else
-                    rob.movementSpeed = 200f;
+                    rob.movementSpeed = 275f;
 
                 timer -= Time.deltaTime;
             }
@@ -55,12 +57,13 @@ public class useBoost : MonoBehaviour
     void Boost()
     {
         string temp = this.transform.Find("Text").GetComponent<Text>().text;
+
         if (System.Int32.Parse(temp) > 1)
         {
             int tcount = System.Int32.Parse(temp) - 1;
             this.transform.Find("Text").GetComponent<Text>().text = "" + tcount;
         }
-        //else
-          //  Destroy(this.gameObject);
+        else
+            Destroy(this.gameObject);
     }
 }

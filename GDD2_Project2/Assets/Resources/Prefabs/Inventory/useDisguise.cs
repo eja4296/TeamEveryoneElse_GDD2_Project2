@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class useDisguise : MonoBehaviour
 {
-    public GameObject robber;
+    GameObject robber;
     float time = 10;
     SkinnedMeshRenderer m;
     public bool disguise = false;
@@ -21,33 +21,25 @@ public class useDisguise : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if (Input.GetKeyUp(KeyCode.Alpha2))
+		if (Input.GetKeyUp(KeyCode.Alpha2) && !disguise)
         {
             if (System.Int32.Parse(this.transform.Find("Text").GetComponent<Text>().text) > 0)
             {
-                Disguise();
                 disguise = true;
+                toggleMaterial(m);
             }
         }
 
         if (disguise)
         {
             if (time >= 0)
-            {
-                toggleMaterial(m);
-
                 time -= Time.deltaTime;
-            }
-            else if (time <= 0)
-            {
-                toggleMaterial(m);
-                Destroy(this.gameObject);
-            }
-            else
+            else if (time < 0)
             {
                 toggleMaterial(m);
                 time = 10;
                 disguise = false;
+                Disguise();
             }
         }
 	}
@@ -70,5 +62,7 @@ public class useDisguise : MonoBehaviour
             int tcount = System.Int32.Parse(this.transform.Find("Text").GetComponent<Text>().text) - 1;
             this.transform.Find("Text").GetComponent<Text>().text = "" + tcount;
         }
+        else
+            Destroy(this.gameObject);
     }
 }
