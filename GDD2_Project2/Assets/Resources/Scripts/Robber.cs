@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Robber class
 // Inherit Character base class
@@ -37,6 +38,8 @@ public class Robber : Character {
 	public float distance;
 	public float time;
 
+    public Text ammo; 
+
 	// Use this for initialization
 	override public void Start () {
 		movementSpeed = 200f;
@@ -61,7 +64,8 @@ public class Robber : Character {
 		score = 0f;
 		distance = 0f;
 		time = 0f;
-        shots = 10;
+        shots = 7;
+        ammo.text = "Ammo: " + shots;
 	}
 
 	// Update is called once per frame
@@ -108,6 +112,7 @@ public class Robber : Character {
                 {
                     Shoot();
                     shots--;
+                    ammo.text = "Ammo: " + shots;
                 }
 
                 if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))

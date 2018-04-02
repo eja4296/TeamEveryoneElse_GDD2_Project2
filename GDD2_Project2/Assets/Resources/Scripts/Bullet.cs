@@ -41,6 +41,7 @@ public class Bullet : MonoBehaviour {
 	public void OnControllerColliderHit(ControllerColliderHit hit){
 		
 		if (hit.gameObject.name != "Robber" && hit.gameObject.name != "Cube" && hit.gameObject.name != "Bullet") {
+            Destroy(hit.gameObject);
 			Destroy (this.gameObject);
 			Debug.Log (hit.gameObject.name);
 		}
