@@ -157,9 +157,9 @@ public class LevelManager : MonoBehaviour {
             difficultyTimer = difficultyIncreaseTime;
             spawnPercentage += .5f;
             Cop prefab = cop.GetComponent<Cop>();
-            prefab.patrolSpeed += .15f;
-            prefab.pursuitSpeed += .15f;
-            prefab.maxRecognitionTime -= .05f;
+            prefab.patrolSpeed += .2f;
+            prefab.pursuitSpeed += .2f;
+            prefab.maxRecognitionTime -= .075f;
             Debug.Log(cop.GetComponent<Cop>().pursuitSpeed);
         }
         //update chunk location
