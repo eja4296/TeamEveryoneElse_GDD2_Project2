@@ -13,10 +13,14 @@ public class pickUp : MonoBehaviour
     Robber robber;
     float cooldown = 1;
     public bool hidden = false;
+    bool gotItem;
+    TextMesh textObj;
+
     void Start()
     {
         text = GameObject.FindGameObjectWithTag("text");
         m = GameObject.FindGameObjectWithTag("mesh").GetComponent<SkinnedMeshRenderer>();
+        textObj = text.GetComponent<TextMesh>();
         text.SetActive(false);
         robber = GetComponent<Robber>();
     }
@@ -25,13 +29,13 @@ public class pickUp : MonoBehaviour
     {
         if (col.gameObject.tag == "donut" || col.gameObject.tag == "disguise" || col.gameObject.tag == "boost")
         {
-            popUpText.GetComponent<TextMesh>().text = "Press E to interact";
+            textObj.text = "Press E to search";
             text.SetActive(true);
         }
 
-        if (col.gameObject.tag == "car" || col.gameObject.tag == "dump")
+        else if (col.gameObject.tag == "car" || col.gameObject.tag == "dump")
         {
-            popUpText.GetComponent<TextMesh>().text = "Press E to interact";
+            textObj.text = "Press E to hide";
             text.SetActive(true);
         }
     }
@@ -41,6 +45,8 @@ public class pickUp : MonoBehaviour
         //look through children for existing icon
         if (col.gameObject.tag == "donut" || col.gameObject.tag == "disguise" || col.gameObject.tag == "boost")
         {
+            textObj.text = "Press E to search";
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 foreach (Transform child in inventoryPanel.transform)
@@ -73,11 +79,18 @@ public class pickUp : MonoBehaviour
                     i = Instantiate(inventoryIcons[2]);
                     i.transform.SetParent(inventoryPanel.transform);
                 }
+
+                col.tag = "Untagged";
+
+                textObj.text = "";
             }
         }
 
         if (col.gameObject.tag == "car" || col.gameObject.tag == "dump")
         {
+            if (active)
+                textObj.text = "Press E to hide";
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 m.enabled = false;
@@ -95,15 +108,22 @@ public class pickUp : MonoBehaviour
 
     void Update()
     {
-        if(!active)
+        if (!active && cooldown >= 0)
+            cooldown -= Time.deltaTime;
+        else if (!active && cooldown <= 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            textObj.text = "Press E to get out";
+
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 robber.moving = true;
                 active = true;
                 m.enabled = true;
                 hidden = false;
+                cooldown = 0.5f;
             }
         }
+
+
     }
 }

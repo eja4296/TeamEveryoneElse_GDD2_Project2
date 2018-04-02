@@ -19,6 +19,5 @@ public class GetRobberScore : MonoBehaviour {
 		this.GetComponent<Text> ().text = "Score: " + robber.GetComponent<Robber> ().score;
 		this.GetComponent<Text>().text += "\nDistance: " + robber.GetComponent<Robber> ().distance.ToString("n1") + "m";
 		this.GetComponent<Text>().text += "\nTime: " + robber.GetComponent<Robber> ().time.ToString("n2") + "s";
-        this.GetComponent<Text>().text += "\nBullets: " + robber.GetComponent<Robber>().shots;
 	}
 }

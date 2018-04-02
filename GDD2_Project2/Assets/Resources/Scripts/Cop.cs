@@ -37,7 +37,7 @@ public class Cop : MonoBehaviour
     //how long it takes to recognize that the cop needs to pursue the robber
     float recognitionTimer;
     public float maxRecognitionTime;
-    
+
     //how long before the cop gives up on chasing you
     float pursuitTimer;
     public float maxPursuitTime;
@@ -47,22 +47,26 @@ public class Cop : MonoBehaviour
     //public GameObject parentChunk;
     public Transform spawnPoint;
 
-	public Rigidbody charController;
+    public Rigidbody charController;
     public Robber robber;
     GameObject[] trash;
     public useDisguise[] disguise;
+    public GameObject[] eat;
+    bool food = false;
+    float duration = 5;
 
-    enum CopState {
+    enum CopState
+    {
         patrolling,
         alert,
         pursuit,
         attack
     }
     CopState currentState;
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-		charController = this.GetComponent<Rigidbody> ();
+        charController = this.GetComponent<Rigidbody>();
         player = GameObject.Find("Robber");
         currentState = CopState.patrolling;
         curPatrolPoint = 0;
@@ -80,22 +84,33 @@ public class Cop : MonoBehaviour
             for (int i = 0; i < trash.Length; i++)
                 disguise[i] = trash[i].GetComponent<useDisguise>();
         }
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
+        eat = GameObject.FindGameObjectsWithTag("eat");
+
+        for (int i = 0; i < eat.Length; i++)
+        {
+            if (Vector3.Distance(this.transform.position, eat[i].transform.position) < 10)
+                food = true;
+            else
+                food = false;
+        }
         //handle action state of the cop
-        switch (currentState) {
+        switch (currentState)
+        {
             //looping back and forth through path
             case CopState.patrolling:
                 //set flashlight
-                if (flashLight.enabled == true) {
+                if (flashLight.enabled == true)
+                {
                     flashLight.enabled = false;
                 }
 
                 // Change the cop from red to blue if necessary
-                if(minimapSphere.GetComponent<MeshRenderer>().material != materialBlue)
+                if (minimapSphere.GetComponent<MeshRenderer>().material != materialBlue)
                 {
                     minimapSphere.GetComponent<MeshRenderer>().material = materialBlue;
                 }
@@ -107,7 +122,8 @@ public class Cop : MonoBehaviour
                 Vector3 dir = player.transform.position - transform.position;
 
                 float angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-                if (!player.GetComponent<pickUp>().hidden && Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle && Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber") {
+                if (!player.GetComponent<pickUp>().hidden && Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle && Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber")
+                {
                     lastKnownPos = player.transform.position;
                     currentState = CopState.alert;
                 }
@@ -116,30 +132,39 @@ public class Cop : MonoBehaviour
                     curSpeed = patrolSpeed;
 
                 //if we reached a target
-                if (curTargetPoint == null) {
+                if (curTargetPoint == null)
+                {
                     //change index based on movement direction
-                    if (forwards) {
+                    if (forwards)
+                    {
                         curPatrolPoint++;
-                    } else {
+                    }
+                    else
+                    {
                         curPatrolPoint--;
                     }
                     //Debug.Log(curPatrolPoint);
                     curTargetPoint = patrolPath[curPatrolPoint];
-                    
+
                 }
                 //if reached target
-                else if (Vector3.Distance(transform.position, curTargetPoint.position) < .5f) {
+                else if (Vector3.Distance(transform.position, curTargetPoint.position) < .5f)
+                {
                     curTargetPoint = null;
-                    
+
                     //bounce off of edges of list
-                    if(curPatrolPoint >= patrolPath.Count - 1 && forwards == true) {
+                    if (curPatrolPoint >= patrolPath.Count - 1 && forwards == true)
+                    {
                         forwards = false;
-                    }else if (curPatrolPoint <= 0 && forwards == false) {
+                    }
+                    else if (curPatrolPoint <= 0 && forwards == false)
+                    {
                         forwards = true;
                     }
                 }
-                
-                if(curTargetPoint != null) {
+
+                if (curTargetPoint != null)
+                {
                     Vector3 normalizedDirection = Vector3.Normalize(curTargetPoint.position - transform.position);
                     charController.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Normalize(curTargetPoint.position - transform.position)), Time.deltaTime * 5f));
                     charController.MovePosition(transform.position + normalizedDirection * curSpeed * Time.deltaTime);
@@ -149,28 +174,79 @@ public class Cop : MonoBehaviour
             case CopState.pursuit:
                 Debug.Log("Pursuit");
                 //set speed
-                if(curSpeed < pursuitSpeed)
+                if (curSpeed < pursuitSpeed)
                     curSpeed = pursuitSpeed;
 
-                dir = player.transform.position - transform.position;
-                angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-                if (!player.GetComponent<pickUp>().hidden && Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < pursuitSightAngle && ((Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber")|| Vector3.Distance(player.transform.position, transform.position) < patrolSightRadius/2)) {          
-                    lastKnownPos = player.transform.position;
-                    pursuitTimer = maxPursuitTime;
-                }else {
-                    pursuitTimer -= Time.deltaTime;
-                    if(pursuitTimer <= 0f) {
+                if (!food)
+                {
+                    dir = player.transform.position - transform.position;
+                    angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
+                    if (!player.GetComponent<pickUp>().hidden && Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < pursuitSightAngle && ((Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber") || Vector3.Distance(player.transform.position, transform.position) < patrolSightRadius / 2))
+                    {
+                        lastKnownPos = player.transform.position;
                         pursuitTimer = maxPursuitTime;
-                        currentState = CopState.patrolling;
+                    }
+                    else
+                    {
+                        pursuitTimer -= Time.deltaTime;
+                        if (pursuitTimer <= 0f)
+                        {
+                            pursuitTimer = maxPursuitTime;
+                            currentState = CopState.patrolling;
+                        }
+                    }
+                    if (Vector3.Distance(transform.position, lastKnownPos) < .5f)
+                    {
+                        charController.MoveRotation(Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 45f * Time.deltaTime, 0f)));
+                    }
+                    else
+                    {
+                        //move towards the player's last known position
+                        Vector3 playerDirection = Vector3.Normalize(lastKnownPos - transform.position);
+                        charController.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Normalize(lastKnownPos - transform.position)), Time.deltaTime * 15f));
+                        charController.MovePosition(transform.position + playerDirection * curSpeed * Time.deltaTime);
                     }
                 }
-                if(Vector3.Distance(transform.position, lastKnownPos) < .5f) {
-                    charController.MoveRotation(Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 45f * Time.deltaTime, 0f)));
-                }else {
-                    //move towards the player's last known position
-                    Vector3 playerDirection = Vector3.Normalize(lastKnownPos - transform.position);
-                    charController.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Normalize(lastKnownPos - transform.position)), Time.deltaTime * 15f));
-                    charController.MovePosition(transform.position + playerDirection * curSpeed * Time.deltaTime);
+                else if (food)
+                {
+                    for (int i = 0; i < eat.Length; i++)
+                    {
+                        dir = eat[i].transform.position - transform.position;
+                        angle = Vector3.Angle(transform.forward, eat[i].transform.position - transform.position);
+                        if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < pursuitSightAngle && ((Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber") || Vector3.Distance(eat[i].transform.position, transform.position) < patrolSightRadius / 2))
+                        {
+                            lastKnownPos = eat[i].transform.position;
+                            pursuitTimer = maxPursuitTime;
+                        }
+                        else
+                        {
+                            pursuitTimer -= Time.deltaTime;
+                            if (pursuitTimer <= 0f)
+                            {
+                                pursuitTimer = maxPursuitTime;
+                                currentState = CopState.patrolling;
+                            }
+                        }
+                        if (Vector3.Distance(transform.position, lastKnownPos) < .5f)
+                        {
+                            charController.MoveRotation(Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 45f * Time.deltaTime, 0f)));
+                        }
+                        else
+                        {
+                            //move towards the player's last known position
+                            Vector3 playerDirection = Vector3.Normalize(lastKnownPos - transform.position);
+                            charController.MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.Normalize(lastKnownPos - transform.position)), Time.deltaTime * 15f));
+                            charController.MovePosition(transform.position + playerDirection * curSpeed * Time.deltaTime);
+                        }
+                    }
+
+                    duration -= Time.deltaTime;
+
+                    if (duration <= 0)
+                    {
+                        food = false;
+                        duration = 5;
+                    }
                 }
 
                 break;
@@ -179,7 +255,8 @@ public class Cop : MonoBehaviour
             case CopState.alert:
                 Debug.Log("Alerted");
                 //set flashlight
-                if(flashLight.enabled == false) {
+                if (flashLight.enabled == false)
+                {
                     flashLight.enabled = true;
                 }
 
@@ -193,7 +270,8 @@ public class Cop : MonoBehaviour
                 dir = player.transform.position - transform.position;
 
                 angle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle && Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber") {
+                if (Vector3.Distance(player.transform.position, transform.position) < alertSightRadius && angle < sightAngle && Physics.Raycast(transform.position, dir, out hit) && hit.transform.name == "Robber")
+                {
 
                     recognitionTimer -= Time.deltaTime;
 
@@ -202,14 +280,16 @@ public class Cop : MonoBehaviour
                     //update the last known position of the player
                     lastKnownPos = player.transform.position;
                     //time allowed to recognize the player for pursuit
-                    if(recognitionTimer <= 0f) {
+                    if (recognitionTimer <= 0f)
+                    {
                         recognitionTimer = maxRecognitionTime;
                         currentState = CopState.pursuit;
                     }
                 }
                 //if we're out of alert time, go back to patrolling
                 alertTimer -= Time.deltaTime;
-                if(alertTimer <= 0f) {
+                if (alertTimer <= 0f)
+                {
                     alertTimer = maxAlertTime;
                     currentState = CopState.patrolling;
                 }
@@ -234,20 +314,24 @@ public class Cop : MonoBehaviour
                     player.hidden = true;
             }
         }*/
-        if(currentState == CopState.patrolling || currentState == CopState.pursuit) {
-
+        for (int i = 0; i < disguise.Length; i++)
+        {
+            if (currentState != CopState.pursuit && disguise[i].disguise)
+            {
+                currentState = CopState.patrolling;
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             //Destroy(player);
             //SceneManager.LoadScene("GameOverMenu");
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-			Application.LoadLevel("GameOverMenu");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene("GameOverMenu");
 
         }
 
@@ -255,15 +339,20 @@ public class Cop : MonoBehaviour
             Destroy(this.gameObject);
     }
 
-    public void CreatePatrolPath() {
+    public void CreatePatrolPath()
+    {
         int PathDepth = Random.Range(3, 7);
         Transform curPoint = spawnPoint;
-        for(int i = 0; i < PathDepth; i++) {
+        for (int i = 0; i < PathDepth; i++)
+        {
             Waypoint curPointWayPoint = curPoint.gameObject.GetComponent<Waypoint>();
-            if (!patrolPath.Contains(curPoint)) {
+            if (!patrolPath.Contains(curPoint))
+            {
                 patrolPath.Add(curPoint);
                 //curPoint.GetComponent<MeshRenderer>().enabled = true;
-            }else {
+            }
+            else
+            {
                 curPoint = curPointWayPoint.links[Random.Range(0, curPointWayPoint.links.Count)].transform;
                 i--;
             }
@@ -275,7 +364,8 @@ public class Cop : MonoBehaviour
         parentChunk = newChunk;
     }*/
     //takes waypoint from a chunk and sets it as the cop's spawn point
-    public void SetSpawnPoint(GameObject wayPoint) {
+    public void SetSpawnPoint(GameObject wayPoint)
+    {
         spawnPoint = wayPoint.transform;
     }
 }
