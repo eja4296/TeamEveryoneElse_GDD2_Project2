@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -763,12 +764,12 @@ Prefab:
     - target: {fileID: 224369953746637878, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 474.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224369953746637878, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 237.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224369953746637878, guid: 1a8d852a377a1384f9262a7c0bb2efc2,
         type: 2}
@@ -999,12 +1000,12 @@ Prefab:
     - target: {fileID: 224015181566184980, guid: d7a4daf1606a2e64592dfe3d4c420075,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 474.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224015181566184980, guid: d7a4daf1606a2e64592dfe3d4c420075,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 237.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224015181566184980, guid: d7a4daf1606a2e64592dfe3d4c420075,
         type: 2}
@@ -1094,7 +1095,7 @@ Prefab:
     - target: {fileID: 114607194963989558, guid: d7a4daf1606a2e64592dfe3d4c420075,
         type: 2}
       propertyPath: m_Text
-      value: "Score: \nDistance:\nTime:\nBullets:"
+      value: "Score: \nDistance:\nTime:"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7a4daf1606a2e64592dfe3d4c420075, type: 2}
@@ -1282,6 +1283,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -1430,6 +1432,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -3008,7 +3011,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2128535490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 372.5, y: 71.9, z: -13.5}
+  m_LocalPosition: {x: 0, y: 0, z: -13.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1230480801}
